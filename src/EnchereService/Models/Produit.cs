@@ -1,5 +1,8 @@
-﻿namespace EnchereService.Models;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
+namespace EnchereService.Models;
+
+[Table("Items")]
 public class Produit
 {
     public Guid Id { get; set; }
