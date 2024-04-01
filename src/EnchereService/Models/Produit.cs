@@ -6,7 +6,9 @@ namespace EnchereService.Models;
 public class Produit
 {
     public Guid Id { get; set; }
+    public string Make { get; set; }
     public string Name { get; set; }
+    public int Year { get; set; }
     public string Description { get; set; }
     public string ImageUrl { get; set; }
     public string Category { get; set; }
