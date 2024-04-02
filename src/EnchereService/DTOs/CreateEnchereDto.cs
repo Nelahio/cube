@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace EnchereService;
+namespace EnchereService.DTOs;
 
 public class CreateEnchereDto
 {

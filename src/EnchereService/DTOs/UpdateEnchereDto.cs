@@ -1,4 +1,4 @@
-﻿namespace EnchereService;
+﻿namespace EnchereService.DTOs;
 
 public class UpdateEnchereDto
 {

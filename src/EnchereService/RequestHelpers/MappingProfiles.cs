@@ -2,7 +2,7 @@
 using EnchereService.DTOs;
 using EnchereService.Models;
 
-namespace EnchereService;
+namespace EnchereService.RequestHelpers;
 
 public class MappingProfiles : Profile
 {
