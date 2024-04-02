@@ -86,4 +86,22 @@ public class EncheresController : ControllerBase
 
         return BadRequest("Erreur lors de la mise à jour de l'enchère");
     }
+
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> DeleteEnchere(Guid id)
+    {
+        var enchere = await _context.Auctions.FindAsync(id);
+
+        if (enchere == null) return NotFound();
+
+        //TODO : check seller == username
+
+        _context.Auctions.Remove(enchere);
+
+        var result = await _context.SaveChangesAsync() > 0;
+
+        if (!result) return BadRequest("Erreur lors de la suppression de l'enchère");
+
+        return Ok();
+    }
 }
