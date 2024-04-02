@@ -60,4 +60,30 @@ public class EncheresController : ControllerBase
         return CreatedAtAction(nameof(GetEnchereById),
         new { enchere.Id }, _mapper.Map<EnchereDto>(enchere));
     }
+
+    [HttpPut("{id}")]
+    public async Task<ActionResult> PutEnchere(Guid id, UpdateEnchereDto updateEnchereDto)
+    {
+        var enchere = await _context.Auctions.Include(e => e.Item)
+        .FirstOrDefaultAsync(e => e.Id == id);
+
+        if (enchere == null) return NotFound();
+
+        //TODO : check seller == username
+
+        enchere.Item.Make = updateEnchereDto.Make ?? enchere.Item.Make;
+        enchere.Item.Name = updateEnchereDto.Name ?? enchere.Item.Name;
+        enchere.Item.Year = updateEnchereDto.Year ?? enchere.Item.Year;
+        enchere.Item.Color = updateEnchereDto.Color ?? enchere.Item.Color;
+        enchere.Item.Description = updateEnchereDto.Description ?? enchere.Item.Description;
+        enchere.Item.ImageUrl = updateEnchereDto.ImageUrl ?? enchere.Item.ImageUrl;
+        enchere.Item.Category = updateEnchereDto.Category ?? enchere.Item.Category;
+        // enchere.Item.State = updateEnchereDto.State ?? enchere.Item.State;
+
+        var result = await _context.SaveChangesAsync() > 0;
+
+        if (result) return Ok();
+
+        return BadRequest("Erreur lors de la mise à jour de l'enchère");
+    }
 }
