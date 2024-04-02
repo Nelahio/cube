@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EnchereService.Data;
 using EnchereService.DTOs;
+using EnchereService.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -40,5 +41,23 @@ public class EncheresController : ControllerBase
         if (enchere == null) return NotFound();
 
         return _mapper.Map<EnchereDto>(enchere);
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<EnchereDto>> PostEnchere(CreateEnchereDto enchereDto)
+    {
+        var enchere = _mapper.Map<Enchere>(enchereDto);
+
+        //TODO : ajouter l'utilisateur actuel comme vendeur
+        enchere.Seller = "test";
+
+        _context.Auctions.Add(enchere);
+
+        var result = await _context.SaveChangesAsync() > 0;
+
+        if (!result) return BadRequest("Impossible d'ajouter l'enchère");
+
+        return CreatedAtAction(nameof(GetEnchereById),
+        new { enchere.Id }, _mapper.Map<EnchereDto>(enchere));
     }
 }
