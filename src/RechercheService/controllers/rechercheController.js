@@ -1,19 +1,52 @@
 const Produit = require('../models/produit');
+const { rechercheParams } = require('../services/requestHelpers/rechercheParams');
 
 exports.rechercheProduits = async (req, res) => {
     try {
-        const searchTerm = req.query.searchTerm;
-        const pageNumber = parseInt(req.query.pageNumber, 10) || 1;
-        const pageSize = parseInt(req.query.pageSize, 10) || 4;
-
+        const { searchTerm, pageNumber, pageSize, seller, winner, orderBy, filterBy } = rechercheParams(req);
         let query = Produit.find();
 
         if (searchTerm) {
             query = query.find({ $text: { $search: searchTerm } },
                 { score: { $meta: "textScore" } })
                 .sort({ score: { $meta: "textScore" } });
-        } else {
-            query = query.sort('Make');
+        }
+
+        if (seller) {
+            query = query.find({ seller: seller });
+        }
+        if (winner) {
+            query = query.find({ winner: winner });
+        }
+
+        // Tri selon le paramètre 'orderBy'
+        switch (orderBy) {
+            case 'make':
+                query = query.sort('make');
+                break;
+            case 'new':
+                query = query.sort('createdAt');
+                break;
+            default:
+                query = query.sort('auctionEnd');
+                break;
+        }
+        console.log(filterBy);
+        // Filtrage selon le paramètre 'filterBy'
+        const now = new Date();
+        if (filterBy) {
+
+            switch (filterBy) {
+                case 'finished':
+                    query = query.find({ auctionEnd: { $lt: now } });
+                    break;
+                case 'endingSoon':
+                    query = query.find({ auctionEnd: { $lt: new Date(now.getTime() + 6 * 60 * 60 * 1000), $gt: now } });
+                    break;
+                default:
+                    query = query.find({ auctionEnd: { $gt: now } });
+                    break;
+            }
         }
 
         // Calcul pour la pagination
