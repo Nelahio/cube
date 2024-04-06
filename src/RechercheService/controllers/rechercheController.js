@@ -6,7 +6,9 @@ exports.rechercheProduits = async (req, res) => {
         let query = Produit.find();
 
         if (searchTerm) {
-            query = query.find({ $text: { $search: searchTerm } }).sort({ score: { $meta: "textScore" } });
+            query = query.find({ $text: { $search: searchTerm } },
+                { score: { $meta: "textScore" } })
+                .sort({ score: { $meta: "textScore" } });
         } else {
             query = query.sort('Make');
         }

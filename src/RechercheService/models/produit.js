@@ -21,7 +21,7 @@ const produitSchema = new Schema({
     state: String
 });
 
-produitSchema.index({ Make: 'text', Name: 'text', Color: 'text' });
+produitSchema.index({ make: 'text', name: 'text', color: 'text' });
 
 const Produit = model('Produit', produitSchema);
 

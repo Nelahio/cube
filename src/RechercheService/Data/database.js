@@ -15,8 +15,8 @@ const connectDB = async () => {
 const initializeDatabase = async () => {
     await connectDB().then(async () => {
         try {
-            const result = await Produit.createIndexes();
-            console.log('Indexes créés :', result);
+            await Produit.createIndexes();
+            console.log('Indexes créés');
         } catch (error) {
             console.error('Erreur lors de la création des indexes :', error);
         }
@@ -31,7 +31,7 @@ const initializeDatabase = async () => {
         const produits = JSON.parse(produitData);
 
         await Produit.insertMany(produits);
-        console.log("Base de données initialisée avec les données des produits", produits);
+        console.log("Base de données initialisée avec les données des produits");
     }
 }
 
