@@ -2,23 +2,23 @@ const mongoose = require('mongoose');
 const { Schema, model } = mongoose;
 
 const produitSchema = new Schema({
-    ReservePrice: Number,
-    Seller: String,
-    Winner: String,
-    SoldAmount: Number,
-    CurrentHighBid: Number,
-    CreatedAt: Date,
-    UpdatedAt: Date,
-    AuctionEnd: Date,
-    Status: String,
-    Make: String,
-    Name: String,
-    Year: Number,
-    Color: String,
-    Description: String,
-    ImageUrl: String,
-    Category: String,
-    State: String
+    reservePrice: Number,
+    seller: String,
+    winner: String,
+    soldAmount: Number,
+    currentHighBid: Number,
+    createdAt: Date,
+    updatedAt: Date,
+    auctionEnd: Date,
+    status: String,
+    make: String,
+    name: String,
+    year: Number,
+    color: String,
+    description: String,
+    imageUrl: String,
+    category: String,
+    state: String
 });
 
 produitSchema.index({ Make: 'text', Name: 'text', Color: 'text' });
