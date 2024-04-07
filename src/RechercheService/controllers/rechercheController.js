@@ -14,23 +14,42 @@ exports.rechercheProduits = async (req, res) => {
       orderBy,
       filterBy,
     } = rechercheParams(req);
-    let query = Produit.find();
+    let conditions = {};
 
     if (searchTerm) {
-      query = query
-        .find(
-          { $text: { $search: searchTerm } },
-          { score: { $meta: "textScore" } }
-        )
-        .sort({ score: { $meta: "textScore" } });
+      conditions.$text = { $search: searchTerm };
     }
 
     if (seller) {
-      query = query.find({ seller: seller });
+      conditions.seller = seller;
     }
     if (winner) {
-      query = query.find({ winner: winner });
+      conditions.winner = winner;
     }
+
+    const now = new Date();
+    if (filterBy) {
+      switch (filterBy) {
+        case "finished":
+          conditions.auctionEnd = { $lt: now };
+          break;
+        case "endingSoon":
+          conditions.auctionEnd = {
+            $lt: new Date(now.getTime() + 6 * 60 * 60 * 1000),
+            $gt: now,
+          };
+          break;
+        default:
+          conditions.auctionEnd = { $gt: now };
+          break;
+      }
+    }
+
+    // Calculez le nombre total de résultats correspondants
+    const totalCount = await Produit.countDocuments(conditions);
+
+    // Construisez la requête avec pagination pour récupérer les résultats
+    let query = Produit.find(conditions).skip((pageNumber - 1) * pageSize).limit(pageSize);
 
     // Tri selon le paramètre 'orderBy'
     switch (orderBy) {
@@ -38,44 +57,15 @@ exports.rechercheProduits = async (req, res) => {
         query = query.sort("make");
         break;
       case "new":
-        query = query.sort("createdAt");
+        query = query.sort("-createdAt"); // Notez le "-" pour le tri décroissant
         break;
       default:
         query = query.sort("auctionEnd");
         break;
     }
-    console.log(filterBy);
-    // Filtrage selon le paramètre 'filterBy'
-    const now = new Date();
-    if (filterBy) {
-      switch (filterBy) {
-        case "finished":
-          query = query.find({ auctionEnd: { $lt: now } });
-          break;
-        case "endingSoon":
-          query = query.find({
-            auctionEnd: {
-              $lt: new Date(now.getTime() + 6 * 60 * 60 * 1000),
-              $gt: now,
-            },
-          });
-          break;
-        default:
-          query = query.find({ auctionEnd: { $gt: now } });
-          break;
-      }
-    }
-
-    // Calcul pour la pagination
-    const skip = (pageNumber - 1) * pageSize;
-    query = query.skip(skip).limit(pageSize);
 
     // Exécution de la requête avec pagination
     const results = await query.exec();
-
-    // Calcul du nombre total de résultats pour déterminer le nombre de pages
-    const totalCount = results.length;
-
     res.json({
       results,
       pageCount: Math.ceil(totalCount / pageSize),
