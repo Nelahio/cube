@@ -23,13 +23,10 @@ const initializeDatabase = async () => {
     }
   });
 
-  const count = await Produit.countDocuments();
-
   const produits = await getProduitsForSearchDb();
 
-  console.log(produits.length + " retournés du service des enchères.");
-
-  if (produits.length > 0) {
+  if (produits?.length > 0) {
+    console.log(produits.length + " retournés du service des enchères.");
     await Produit.insertMany(produits);
   }
 };
