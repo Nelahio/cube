@@ -60,11 +60,11 @@ public class EncheresController : ControllerBase
 
         _context.Auctions.Add(enchere);
 
-        var result = await _context.SaveChangesAsync() > 0;
-
         var newEnchere = _mapper.Map<EnchereDto>(enchere);
 
         await _publishEndpoint.Publish(_mapper.Map<EnchereCreated>(newEnchere));
+
+        var result = await _context.SaveChangesAsync() > 0;
 
         if (!result) return BadRequest("Impossible d'ajouter l'enchère");
 
