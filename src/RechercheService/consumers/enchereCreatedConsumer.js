@@ -12,7 +12,7 @@ const consumeEnchereCreated = async () => {
   const routingKey = "";
 
   await channel.assertExchange(exchange, "fanout", { durable: true });
-  await channel.assertQueue(queue, { durable: false });
+  await channel.assertQueue(queue, { durable: true });
   await channel.bindQueue(queue, exchange, routingKey);
   console.log(`Binding créé entre l'exchange ${exchange} et la queue ${queue}`);
   await channel.consume(
@@ -24,6 +24,7 @@ const consumeEnchereCreated = async () => {
           message.content.toString()
         );
         const enchereCreated = JSON.parse(message.content.toString()).message;
+        console.log("Enchère reçue:", enchereCreated);
         const produitData = automapper.map(
           "EnchereCreated",
           "Produit",
@@ -42,6 +43,7 @@ const consumeEnchereCreated = async () => {
     },
     { noAck: false }
   );
+  console.log("Consumer est en écoute des enchères...");
 };
 
 module.exports = consumeEnchereCreated;
