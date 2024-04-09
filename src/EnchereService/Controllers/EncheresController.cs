@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using EnchereService.Contracts;
 using EnchereService.Data;
 using EnchereService.DTOs;
 using EnchereService.Models;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,11 +16,13 @@ public class EncheresController : ControllerBase
 {
     private readonly EnchereDbContext _context;
     private readonly IMapper _mapper;
+    private readonly IPublishEndpoint _publishEndpoint;
 
-    public EncheresController(EnchereDbContext context, IMapper mapper)
+    public EncheresController(EnchereDbContext context, IMapper mapper, IPublishEndpoint publishEndpoint)
     {
         _context = context;
         _mapper = mapper;
+        _publishEndpoint = publishEndpoint;
     }
 
     [HttpGet]
@@ -57,6 +61,10 @@ public class EncheresController : ControllerBase
         _context.Auctions.Add(enchere);
 
         var result = await _context.SaveChangesAsync() > 0;
+
+        var newEnchere = _mapper.Map<EnchereDto>(enchere);
+
+        await _publishEndpoint.Publish(_mapper.Map<EnchereCreated>(newEnchere));
 
         if (!result) return BadRequest("Impossible d'ajouter l'enchère");
 

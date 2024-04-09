@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const enchereCreatedSchema = new mongoose.Schema({
-  _id: { type: String, required: true },
+  id: { type: String, required: true },
   reservePrice: { type: Number, default: 0 },
   seller: String,
   winner: String,

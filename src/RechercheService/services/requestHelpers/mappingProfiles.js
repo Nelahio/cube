@@ -1,3 +1,7 @@
 const automapper = require("automapper-ts");
 
-automapper.createMap("EnchereCreated", "Produit");
+automapper.initialize((config) => {
+  config
+    .createMap("EnchereCreated", "Produit")
+    .forMember("_id", (opts) => opts.mapFrom("id"));
+});
