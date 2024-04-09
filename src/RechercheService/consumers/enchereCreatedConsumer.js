@@ -31,12 +31,25 @@ const consumeEnchereCreated = async () => {
           enchereCreated
         );
         const produit = new Produit(produitData);
-        try {
-          await produit.save();
-          console.log("Produit enregistré avec succès");
-        } catch (error) {
-          console.error("Erreur lors de l'enregistrement du produit:", error);
-        }
+
+        await retry(
+          async (bail, attempt) => {
+            try {
+              await produit.save();
+              console.log("Produit enregistré avec succès");
+            } catch (error) {
+              console.error(
+                `Échec de l'enregistrement du produit, tentative ${attempt}:`,
+                error
+              );
+            }
+          },
+          {
+            retries: 5,
+            factor: 2,
+            minTimeout: 1000,
+          }
+        );
 
         channel.ack(message);
       }
