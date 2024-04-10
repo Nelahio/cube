@@ -91,6 +91,8 @@ public class EncheresController : ControllerBase
         enchere.Item.Category = updateEnchereDto.Category ?? enchere.Item.Category;
         // enchere.Item.State = updateEnchereDto.State ?? enchere.Item.State;
 
+        await _publishEndpoint.Publish<EnchereUpdated>(_mapper.Map<EnchereUpdated>(enchere));
+
         var result = await _context.SaveChangesAsync() > 0;
 
         if (result) return Ok();
@@ -108,6 +110,8 @@ public class EncheresController : ControllerBase
         //TODO : check seller == username
 
         _context.Auctions.Remove(enchere);
+
+        await _publishEndpoint.Publish<EnchereDeleted>(new EnchereDeleted { Id = enchere.Id.ToString() });
 
         var result = await _context.SaveChangesAsync() > 0;
 

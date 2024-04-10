@@ -1,8 +1,9 @@
 const express = require("express");
 const initializeDatabase = require("./data/database");
 const produitRoutes = require("./routes/rechercheRoutes");
-const configureRabbitMQ = require("./services/rabbitmqConfig");
 const consumeEnchereCreated = require("./consumers/enchereCreatedConsumer");
+const consumeEnchereUpdated = require("./consumers/enchereUpdatedConsumer");
+const consumeEnchereDeleted = require("./consumers/enchereDeletedConsumer");
 require("./services/requestHelpers/mappingProfiles");
 
 const app = express();
@@ -18,7 +19,25 @@ consumeEnchereCreated()
   .then(() => console.log("Consommateur EnchereCreated démarré avec succès."))
   .catch((error) =>
     console.error(
-      "Erreur lors du démarrage du consommateur EnchereCreated:",
+      "Erreur lors du démarrage du consommateur EnchereCreated :",
+      error
+    )
+  );
+
+consumeEnchereUpdated()
+  .then(() => console.log("Consommateur EnchereUpdated démarré avec succès."))
+  .catch((error) =>
+    console.error(
+      "Erreur lors du démarrage du consommateur EnchereUpdated :",
+      error
+    )
+  );
+
+consumeEnchereDeleted()
+  .then(() => console.log("Consommateur EnchereDeleted démarré avec succès."))
+  .catch((error) =>
+    console.error(
+      "Erreur lors du démarrage du consommateur EnchereDeleted :",
       error
     )
   );

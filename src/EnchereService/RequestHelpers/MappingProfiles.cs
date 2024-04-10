@@ -15,5 +15,7 @@ public class MappingProfiles : Profile
         .ForMember(d => d.Item, o => o.MapFrom(s => s));
         CreateMap<CreateEnchereDto, Produit>();
         CreateMap<EnchereDto, EnchereCreated>();
+        CreateMap<Enchere, EnchereUpdated>().IncludeMembers(e => e.Item);
+        CreateMap<Produit, EnchereUpdated>();
     }
 }
