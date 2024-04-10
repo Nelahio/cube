@@ -1,3 +1,4 @@
+using EnchereService.Consumers;
 using EnchereService.Data;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
@@ -21,7 +22,8 @@ builder.Services.AddMassTransit(x =>
         o.UsePostgres();
         o.UseBusOutbox();
     });
-
+    x.AddConsumersFromNamespaceContaining<EnchereCreatedFaultConsumer>();
+    x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("enchere", false));
     x.UsingRabbitMq((context, cfg) =>
     {
         cfg.ConfigureEndpoints(context);
