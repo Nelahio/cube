@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using EnchereService.Contracts;
 using EnchereService.Data;
 using EnchereService.DTOs;
 using EnchereService.Models;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,22 +16,26 @@ public class EncheresController : ControllerBase
 {
     private readonly EnchereDbContext _context;
     private readonly IMapper _mapper;
+    private readonly IPublishEndpoint _publishEndpoint;
 
-    public EncheresController(EnchereDbContext context, IMapper mapper)
+    public EncheresController(EnchereDbContext context, IMapper mapper, IPublishEndpoint publishEndpoint)
     {
         _context = context;
         _mapper = mapper;
+        _publishEndpoint = publishEndpoint;
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<EnchereDto>>> GetAllEncheres()
+    public async Task<ActionResult<List<EnchereDto>>> GetAllEncheres(string date)
     {
-        var encheres = await _context.Auctions
-        .Include(e => e.Item)
-        .OrderBy(e => e.Item.Make)
-        .ToListAsync();
+        var query = _context.Auctions.OrderBy(a => a.Item.Make).AsQueryable();
 
-        return _mapper.Map<List<EnchereDto>>(encheres);
+        if (!string.IsNullOrEmpty(date))
+        {
+            query = query.Where(x => x.UpdatedAt.CompareTo(DateTime.Parse(date).ToUniversalTime()) > 0);
+        }
+
+        return await query.ProjectTo<EnchereDto>(_mapper.ConfigurationProvider).ToListAsync();
     }
 
     [HttpGet("{id}")]
@@ -52,6 +59,10 @@ public class EncheresController : ControllerBase
         enchere.Seller = "test";
 
         _context.Auctions.Add(enchere);
+
+        var newEnchere = _mapper.Map<EnchereDto>(enchere);
+
+        await _publishEndpoint.Publish(_mapper.Map<EnchereCreated>(newEnchere));
 
         var result = await _context.SaveChangesAsync() > 0;
 
@@ -80,6 +91,8 @@ public class EncheresController : ControllerBase
         enchere.Item.Category = updateEnchereDto.Category ?? enchere.Item.Category;
         // enchere.Item.State = updateEnchereDto.State ?? enchere.Item.State;
 
+        await _publishEndpoint.Publish<EnchereUpdated>(_mapper.Map<EnchereUpdated>(enchere));
+
         var result = await _context.SaveChangesAsync() > 0;
 
         if (result) return Ok();
@@ -97,6 +110,8 @@ public class EncheresController : ControllerBase
         //TODO : check seller == username
 
         _context.Auctions.Remove(enchere);
+
+        await _publishEndpoint.Publish<EnchereDeleted>(new EnchereDeleted { Id = enchere.Id.ToString() });
 
         var result = await _context.SaveChangesAsync() > 0;
 
