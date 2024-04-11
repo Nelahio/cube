@@ -11,14 +11,13 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AuthentificationService.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240123193529_Users")]
+    [Migration("20211227182747_Users")]
     partial class Users
     {
-        /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
+            modelBuilder.HasAnnotation("ProductVersion", "6.0.0");
 
             modelBuilder.Entity("AuthentificationService.Models.ApplicationUser", b =>
                 {
