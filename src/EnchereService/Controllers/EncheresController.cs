@@ -5,6 +5,7 @@ using EnchereService.Data;
 using EnchereService.DTOs;
 using EnchereService.Models;
 using MassTransit;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -50,13 +51,13 @@ public class EncheresController : ControllerBase
         return _mapper.Map<EnchereDto>(enchere);
     }
 
+    [Authorize]
     [HttpPost]
     public async Task<ActionResult<EnchereDto>> PostEnchere(CreateEnchereDto enchereDto)
     {
         var enchere = _mapper.Map<Enchere>(enchereDto);
 
-        //TODO : ajouter l'utilisateur actuel comme vendeur
-        enchere.Seller = "test";
+        enchere.Seller = User.Identity.Name;
 
         _context.Auctions.Add(enchere);
 
@@ -72,6 +73,7 @@ public class EncheresController : ControllerBase
         new { enchere.Id }, _mapper.Map<EnchereDto>(enchere));
     }
 
+    [Authorize]
     [HttpPut("{id}")]
     public async Task<ActionResult> PutEnchere(Guid id, UpdateEnchereDto updateEnchereDto)
     {
@@ -80,7 +82,7 @@ public class EncheresController : ControllerBase
 
         if (enchere == null) return NotFound();
 
-        //TODO : check seller == username
+        if (enchere.Seller != User.Identity.Name) return Forbid();
 
         enchere.Item.Make = updateEnchereDto.Make ?? enchere.Item.Make;
         enchere.Item.Name = updateEnchereDto.Name ?? enchere.Item.Name;
@@ -100,6 +102,7 @@ public class EncheresController : ControllerBase
         return BadRequest("Erreur lors de la mise à jour de l'enchère");
     }
 
+    [Authorize]
     [HttpDelete("{id}")]
     public async Task<ActionResult> DeleteEnchere(Guid id)
     {
@@ -107,7 +110,7 @@ public class EncheresController : ControllerBase
 
         if (enchere == null) return NotFound();
 
-        //TODO : check seller == username
+        if (enchere.Seller != User.Identity.Name) return Forbid();
 
         _context.Auctions.Remove(enchere);
 
