@@ -37,3 +37,18 @@ services:
     depends_on:
       - postgres
       - rabbitmq
+  recherche-service:
+    image: nelahio/recherche-service:latest
+    build:
+      context: .
+      dockerfile: src/RechercheService/Dockerfile
+    environment:
+      - DB_URI=mongodb://root:mongopw@mongodb:27017/recherche?authSource=admin
+      - PORT=7002
+      - ENCHERE_SERVICE_URL=http://enchere-service
+      - RABBITMQ_HOST=rabbitmq
+    ports:
+      - 7002:7002
+    depends_on:
+      - mongodb
+      - rabbitmq
