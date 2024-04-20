@@ -11,7 +11,7 @@ public class OffresController : ControllerBase
 {
     [Authorize]
     [HttpPost]
-    public async Task<ActionResult<Offre>> PostOffre(string enchereId, int amount)
+    public async Task<ActionResult<Offre>> PostOffre(string enchereId, int montant)
     {
         var enchere = await DB.Find<Enchere>().OneAsync(enchereId);
 
@@ -28,7 +28,7 @@ public class OffresController : ControllerBase
 
         var offre = new Offre
         {
-            Amount = amount,
+            Amount = montant,
             AuctionId = enchereId,
             Bidder = User.Identity.Name
         };
@@ -44,9 +44,9 @@ public class OffresController : ControllerBase
                    .Sort(o => o.Descending(x => x.Amount))
                    .ExecuteFirstAsync();
 
-            if (meilleureOffre != null && amount > meilleureOffre.Amount || meilleureOffre == null)
+            if (meilleureOffre != null && montant > meilleureOffre.Amount || meilleureOffre == null)
             {
-                offre.BidStatus = amount > enchere.ReservePrice
+                offre.BidStatus = montant > enchere.ReservePrice
                     ? OffreStatut.Accepted
                     : OffreStatut.AcceptedBelowReserve;
             }
@@ -60,5 +60,16 @@ public class OffresController : ControllerBase
         await DB.SaveAsync(offre);
 
         return Ok(offre);
+    }
+
+    [HttpGet("{enchereId}")]
+    public async Task<ActionResult<List<Offre>>> GetOffresForEnchere(string enchereId)
+    {
+        var offres = await DB.Find<Offre>()
+            .Match(e => e.AuctionId == enchereId)
+            .Sort(o => o.Descending(e => e.BidTime))
+            .ExecuteAsync();
+
+        return offres;
     }
 }
