@@ -1,6 +1,8 @@
-﻿namespace OffreService.Models;
+﻿using MongoDB.Entities;
 
-public class Offre
+namespace OffreService.Models;
+
+public class Offre : Entity
 {
     public string AuctionId { get; set; }
     public string Bidder { get; set; }
