@@ -17,7 +17,7 @@ public class OffreCreatedConsumer : IConsumer<OffreCreated>
     {
         Console.WriteLine("--> Consume bid placed");
 
-        var enchere = await _dbContext.Auctions.FindAsync(context.Message.AuctionId);
+        var enchere = await _dbContext.Auctions.FindAsync(Guid.Parse(context.Message.AuctionId));
 
         if (enchere.CurrentHighBid == null
         || context.Message.BidStatus.Contains("Accepted")
