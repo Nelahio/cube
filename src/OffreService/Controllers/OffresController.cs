@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using MassTransit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Entities;
+using OffreService.Contracts;
 using OffreService.DTOs;
 using OffreService.Models;
 
@@ -12,10 +14,12 @@ namespace OffreService.Controllers;
 public class OffresController : ControllerBase
 {
     private readonly IMapper _mapper;
+    private readonly IPublishEndpoint _publishEndpoint;
 
-    public OffresController(IMapper mapper)
+    public OffresController(IMapper mapper, IPublishEndpoint publishEndpoint)
     {
         _mapper = mapper;
+        _publishEndpoint = publishEndpoint;
     }
 
     [Authorize]
@@ -67,6 +71,8 @@ public class OffresController : ControllerBase
         }
 
         await DB.SaveAsync(offre);
+
+        await _publishEndpoint.Publish(_mapper.Map<OffreCreated>(offre));
 
         return Ok(_mapper.Map<OffreDto>(offre));
     }
