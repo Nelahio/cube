@@ -9,5 +9,5 @@ public class OffreDto
     public string Bidder { get; set; }
     public DateTime BidTime { get; set; } = DateTime.UtcNow;
     public int Amount { get; set; }
-    public OffreStatut BidStatus { get; set; }
+    public string BidStatus { get; set; }
 }

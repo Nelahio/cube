@@ -4,6 +4,7 @@ using MongoDB.Driver;
 using MongoDB.Entities;
 using OffreService;
 using OffreService.Consumers;
+using OffreService.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +38,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddHostedService<CheckEnchereFinished>();
+builder.Services.AddScoped<GrpcEnchereClient>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

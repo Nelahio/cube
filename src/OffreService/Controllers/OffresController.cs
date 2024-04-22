@@ -6,6 +6,7 @@ using MongoDB.Entities;
 using Contracts;
 using OffreService.DTOs;
 using OffreService.Models;
+using OffreService.Services;
 
 namespace OffreService.Controllers;
 
@@ -15,11 +16,13 @@ public class OffresController : ControllerBase
 {
     private readonly IMapper _mapper;
     private readonly IPublishEndpoint _publishEndpoint;
+    private readonly GrpcEnchereClient _grpcClient;
 
-    public OffresController(IMapper mapper, IPublishEndpoint publishEndpoint)
+    public OffresController(IMapper mapper, IPublishEndpoint publishEndpoint, GrpcEnchereClient grpcClient)
     {
         _mapper = mapper;
         _publishEndpoint = publishEndpoint;
+        _grpcClient = grpcClient;
     }
 
     [Authorize]
@@ -30,8 +33,9 @@ public class OffresController : ControllerBase
 
         if (enchere == null)
         {
-            // TODO : vérifier avec le service enchere s'il y a enchere
-            return NotFound();
+            enchere = _grpcClient.GetEnchere(enchereId);
+
+            if (enchere == null) return BadRequest("Impossible d'enchérir sur cette enchère pour le moment");
         }
 
         if (enchere.Seller == User.Identity.Name)
