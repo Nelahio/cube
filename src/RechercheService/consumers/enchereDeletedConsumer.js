@@ -5,7 +5,7 @@ const retry = require("async-retry");
 const consumeEnchereDeleted = async () => {
   try {
     const channel = await configureRabbitMQ();
-    const exchange = "EnchereService.Contracts:EnchereDeleted";
+    const exchange = "Contracts:EnchereDeleted";
     const queue = "recherche-auction-deleted";
     const routingKey = "";
 

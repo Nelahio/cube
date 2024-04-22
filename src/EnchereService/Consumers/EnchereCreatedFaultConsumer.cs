@@ -1,4 +1,4 @@
-using EnchereService.Contracts;
+using Contracts;
 using MassTransit;
 
 namespace EnchereService.Consumers;

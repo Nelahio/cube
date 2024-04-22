@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using EnchereService.Contracts;
+using Contracts;
 using EnchereService.DTOs;
 using EnchereService.Models;
 

@@ -1,4 +1,4 @@
-﻿namespace EnchereService.Contracts;
+﻿namespace Contracts;
 
 public class EnchereDeleted
 {
