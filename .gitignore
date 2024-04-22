@@ -479,3 +479,4 @@ $RECYCLE.BIN/
 .vscode/launch.json
 .vscode/tasks.json
 src/AuthentificationService/keys/is-signing-key-6756A2F54E472E30DC343AC41A31ADF4.json
+src/RechercheService/.env
