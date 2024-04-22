@@ -8,7 +8,7 @@ const consumeOffreCreated = async () => {
     // Configuration RabbitMQ
     const channel = await configureRabbitMQ();
     //Nom de l'exchange
-    const exchange = "OffreService.Contracts:OffreCreated";
+    const exchange = "Contracts:OffreCreated";
     // Nom de la file d'attente
     const queue = "recherche-offre-created";
     const routingKey = "";
