@@ -12,6 +12,7 @@ COPY src/Contracts/Contracts.csproj src/Contracts/Contracts.csproj
 RUN dotnet restore cube.sln
 
 COPY src/EnchereService src/EnchereService
+COPY src/Contracts src/Contracts
 WORKDIR /app/src/EnchereService
 RUN dotnet publish -c Release -o /app/src/out
 
