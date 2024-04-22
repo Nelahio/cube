@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option csharp_namespace = "EnchereService";
+
+service GrpcEnchere {
+    rpc GetEnchere (GetEnchereRequest) returns (GrpcEnchereResponse);
+}
+
+message GetEnchereRequest {
+    string id = 1;
+}
+
+message GrpcEnchereModel {
+    string id = 1;
+    string seller = 2;
+    string auctionEnd = 3;
+    int32 reservePrice = 4;
+}
+
+message GrpcEnchereResponse {
+    GrpcEnchereModel enchere = 1;
+}

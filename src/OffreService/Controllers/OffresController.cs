@@ -10,7 +10,7 @@ using OffreService.Models;
 namespace OffreService.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/offres")]
 public class OffresController : ControllerBase
 {
     private readonly IMapper _mapper;
