@@ -1,4 +1,4 @@
-namespace OffreService.Contracts;
+namespace Contracts;
 
 public class EnchereFinished
 {

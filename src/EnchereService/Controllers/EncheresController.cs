@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using EnchereService.Contracts;
+using Contracts;
 using EnchereService.Data;
 using EnchereService.DTOs;
 using EnchereService.Models;

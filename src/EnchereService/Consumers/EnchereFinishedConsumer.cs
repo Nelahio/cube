@@ -1,4 +1,4 @@
-﻿using EnchereService.Contracts;
+﻿using Contracts;
 using EnchereService.Data;
 using EnchereService.Models;
 using MassTransit;

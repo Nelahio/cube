@@ -2,7 +2,7 @@
 
 using MassTransit;
 using MongoDB.Entities;
-using OffreService.Contracts;
+using Contracts;
 using OffreService.Models;
 
 namespace OffreService;

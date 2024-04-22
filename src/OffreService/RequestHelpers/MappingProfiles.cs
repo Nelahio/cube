@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using OffreService.Contracts;
+using Contracts;
 using OffreService.DTOs;
 using OffreService.Models;
 

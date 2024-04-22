@@ -3,7 +3,7 @@ using MassTransit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Entities;
-using OffreService.Contracts;
+using Contracts;
 using OffreService.DTOs;
 using OffreService.Models;
 
