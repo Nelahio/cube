@@ -1,6 +1,6 @@
-import Image from "next/image";
 import React from "react";
 import CountdownTimer from "./CountdownTimer";
+import EnchereImage from "./EnchereImage";
 
 type Props = {
   enchere: any;
@@ -8,17 +8,10 @@ type Props = {
 
 export default function EnchereCard({ enchere }: Props) {
   return (
-    <a href="#">
+    <a href="#" className="group">
       <div className="w-full bg-gray-200 aspect-w-16 aspect-h-10 rounded-lg overflow-hidden">
         <div>
-          <Image
-            src={enchere.imageUrl}
-            alt="image"
-            fill
-            priority
-            className="object-cover"
-            sizes="(max-width:768px) 100vw, (max-width:1200px) 50vw, 25vw"
-          />
+          <EnchereImage imageUrl={enchere.imageUrl} />
           <div className="absolute bottom-2 left-2">
             <CountdownTimer auctionEnd={enchere.auctionEnd} />
           </div>
