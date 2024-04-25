@@ -1,9 +1,10 @@
 import React from "react";
 import CountdownTimer from "./CountdownTimer";
 import EnchereImage from "./EnchereImage";
+import { Enchere } from "@/types";
 
 type Props = {
-  enchere: any;
+  enchere: Enchere;
 };
 
 export default function EnchereCard({ enchere }: Props) {
