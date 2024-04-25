@@ -1,4 +1,10 @@
+import Listings from "./encheres/Listings";
+
 export default function Home() {
   console.log("Server component");
-  return <div>Contenu</div>;
+  return (
+    <div>
+      <Listings />
+    </div>
+  );
 }
