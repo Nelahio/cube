@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+import CountdownTimer from "./CountdownTimer";
 
 type Props = {
   enchere: any;
@@ -18,6 +19,9 @@ export default function EnchereCard({ enchere }: Props) {
             className="object-cover"
             sizes="(max-width:768px) 100vw, (max-width:1200px) 50vw, 25vw"
           />
+          <div className="absolute bottom-2 left-2">
+            <CountdownTimer auctionEnd={enchere.auctionEnd} />
+          </div>
         </div>
       </div>
       <div className="flex justify-between items-center mt-4">
