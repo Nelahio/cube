@@ -1,4 +1,5 @@
 import React from "react";
+import EnchereCard from "./EnchereCard";
 
 async function getData() {
   const res = await fetch("http://localhost:6001/recherche");
@@ -10,5 +11,9 @@ async function getData() {
 
 export default async function Listings() {
   const data = await getData();
-  return <div>{JSON.stringify(data, null, 2)}</div>;
+  return <div>
+    {data && data.results.map((enchere: any) => (
+      <EnchereCard enchere={enchere} key={enchere.id} />
+    ))}
+  </div>;
 }
