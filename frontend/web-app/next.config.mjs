@@ -7,6 +7,16 @@ const nextConfig = {
         hostname: "**.pixabay.com",
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "**.shopify.com",
+        port: "",
+      },
+      {
+        protocol: "https",
+        hostname: "**.dior.com",
+        port: "",
+      },
     ],
   },
 };

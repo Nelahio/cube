@@ -3,10 +3,11 @@
 import { Enchere, PagedResult } from "@/types";
 
 export async function getData(
-  pageNumber: number = 1
+  pageNumber: number,
+  pageSize: number
 ): Promise<PagedResult<Enchere>> {
   const res = await fetch(
-    `http://localhost:6001/recherche?pageSize=5&pageNumber=${pageNumber}`
+    `http://localhost:6001/recherche?pageSize=${pageSize}&pageNumber=${pageNumber}`
   );
 
   if (!res.ok) throw new Error("Erreur lors de la récupération des données");
