@@ -4,7 +4,7 @@ import { GiDelicatePerfume } from "react-icons/gi";
 export default function Navbar() {
   return (
     <header className="header sticky top-0 z-50 flex justify-between bg-white p-5 items-center shadow-md">
-      <div className="flex items-center gap-2 text-3xl font-semibold text-purple-700 tracking-tight hover:text-yellow-600 transition-colors">
+      <div className="flex items-center gap-2 text-3xl font-semibold text-purple-700 tracking-tight hover:text-yellow-400 transition-colors">
         <GiDelicatePerfume size={40} />
         <div>Cube Enchères</div>
       </div>
