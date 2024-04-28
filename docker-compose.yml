@@ -50,11 +50,11 @@ services:
       dockerfile: src/RechercheService/Dockerfile
     environment:
       - DB_URI=mongodb://root:mongopw@mongodb:27017/recherche?authSource=admin
-      - PORT=7002
+      - PORT=80
       - ENCHERE_SERVICE_URL=http://enchere-service
       - RABBITMQ_HOST=rabbitmq
     ports:
-      - 7002:7002
+      - 7002:80
     depends_on:
       - mongodb
       - rabbitmq
@@ -83,7 +83,7 @@ services:
       - 6001:80
   offre-service:
     image: nelahio/offre-service:latest
-    build: 
+    build:
       context: .
       dockerfile: src/OffreService/Dockerfile
     environment:

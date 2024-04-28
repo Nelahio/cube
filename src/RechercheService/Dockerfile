@@ -15,7 +15,7 @@ COPY src/RechercheService/ .
 
 
 # Expose the port that your Node.js service will run on
-EXPOSE 7002
+EXPOSE 80
 
 # Set the command to start your Node.js service
 CMD ["node", "app.js"]
