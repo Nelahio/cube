@@ -45,19 +45,21 @@ exports.rechercheProduits = async (req, res) => {
       }
     }
 
-    // Calculez le nombre total de résultats correspondants
+    // Calcul du nombre total de résultats correspondants
     const totalCount = await Produit.countDocuments(conditions);
 
-    // Construisez la requête avec pagination pour récupérer les résultats
-    let query = Produit.find(conditions).skip((pageNumber - 1) * pageSize).limit(pageSize);
+    // Construction de la requête avec pagination pour récupérer les résultats
+    let query = Produit.find(conditions)
+      .skip((pageNumber - 1) * pageSize)
+      .limit(pageSize);
 
     // Tri selon le paramètre 'orderBy'
     switch (orderBy) {
       case "make":
-        query = query.sort("make");
+        query = query.sort("make").sort("name");
         break;
       case "new":
-        query = query.sort("-createdAt"); // Notez le "-" pour le tri décroissant
+        query = query.sort("-createdAt"); // "-" pour le tri décroissant
         break;
       default:
         query = query.sort("auctionEnd");
