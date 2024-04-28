@@ -1,5 +1,6 @@
 import React from "react";
 import { GiDelicatePerfume } from "react-icons/gi";
+import Recherche from "./Recherche";
 
 export default function Navbar() {
   return (
@@ -8,14 +9,10 @@ export default function Navbar() {
         <GiDelicatePerfume size={40} />
         <div>Cube Enchères</div>
       </div>
-      <div className="flex gap-2">
-        <button className="search-btn hover:bg-gray-100 hover:text-gray-600 transition duration-200 ease-in-out px-4 py-2 rounded-md text-base font-medium">
-          Rechercher
-        </button>
-        <button className="login-btn hover:bg-gray-100 hover:text-gray-600 transition duration-200 ease-in-out px-4 py-2 rounded-md text-base font-medium">
-          Connexion
-        </button>
-      </div>
+      <Recherche />
+      <button className="login-btn hover:bg-gray-100 hover:text-gray-600 transition duration-200 ease-in-out px-4 py-2 rounded-md text-base font-medium">
+        Connexion
+      </button>
     </header>
   );
 }
