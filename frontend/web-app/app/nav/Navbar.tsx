@@ -2,15 +2,17 @@ import React from "react";
 import { GiDelicatePerfume } from "react-icons/gi";
 import Recherche from "./Recherche";
 import Logo from "./Logo";
+import LoginButton from "./LoginButton";
+import { getCurrentUser } from "../actions/authActions";
+import UserActions from "./UserActions";
 
-export default function Navbar() {
+export default async function Navbar() {
+  const user = await getCurrentUser();
   return (
     <header className="header sticky top-0 z-50 flex justify-between bg-white p-5 items-center shadow-md">
       <Logo />
       <Recherche />
-      <button className="login-btn hover:bg-gray-100 hover:text-gray-600 transition duration-200 ease-in-out px-4 py-2 rounded-md text-base font-medium">
-        Connexion
-      </button>
+      {user ? <UserActions /> : <LoginButton />}
     </header>
   );
 }
