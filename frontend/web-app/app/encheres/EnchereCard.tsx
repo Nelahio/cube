@@ -2,6 +2,7 @@ import React from "react";
 import CountdownTimer from "./CountdownTimer";
 import EnchereImage from "./EnchereImage";
 import { Enchere } from "@/types";
+import Link from "next/link";
 
 type Props = {
   enchere: Enchere;
@@ -9,7 +10,7 @@ type Props = {
 
 export default function EnchereCard({ enchere }: Props) {
   return (
-    <a href="#" className="group">
+    <Link href={`encheres/details/${enchere._id}`} className="group">
       <div className="w-full bg-gray-200 aspect-w-16 aspect-h-10 rounded-lg overflow-hidden">
         <div>
           <EnchereImage imageUrl={enchere.imageUrl} />
@@ -24,6 +25,6 @@ export default function EnchereCard({ enchere }: Props) {
         </h3>
         <p className="font-semibold text-sm"> {enchere.year} </p>
       </div>
-    </a>
+    </Link>
   );
 }

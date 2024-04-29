@@ -27,7 +27,7 @@ export default function EmptyFilter({
       <Heading title={title} subtitle={subtitle} center />
       <div className="mt-4">
         {showReset && (
-          <Button outline onClick={reset}>
+          <Button outline onClick={reset} color={"purple"}>
             Supprimer le filtre
           </Button>
         )}
