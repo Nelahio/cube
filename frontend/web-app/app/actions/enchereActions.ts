@@ -1,6 +1,7 @@
 "use server";
 
 import { Enchere, PagedResult } from "@/types";
+import { getTokenWorkaround } from "./authActions";
 
 export async function getData(query: string): Promise<PagedResult<Enchere>> {
   const res = await fetch(`http://localhost:6001/recherche${query}`);
@@ -15,11 +16,16 @@ export async function UpdateEnchereTest() {
     size: Math.floor(Math.random() * 10000) + 1,
   };
 
+  const token = await getTokenWorkaround();
+
   const res = await fetch(
     "http://localhost:6001/encheres/6a5011a1-fe1f-47df-9a32-b5346b289391",
     {
       method: "PUT",
-      headers: {},
+      headers: {
+        "Content-type": "application/json",
+        Authorization: "Bearer " + token?.access_token,
+      },
       body: JSON.stringify(data),
     }
   );
