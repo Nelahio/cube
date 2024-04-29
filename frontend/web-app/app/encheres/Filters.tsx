@@ -50,7 +50,7 @@ export default function Filters() {
     <div className="flex justify-between items-center mb-4">
       <div>
         <span className="uppercase text-sm text-gray-500 mr-2">Filtre</span>
-        <ButtonGroup>
+        <Button.Group>
           {filterButtons.map(({ label, icon: IconBase, value }) => (
             <Button
               key={value}
@@ -61,7 +61,7 @@ export default function Filters() {
               {label}
             </Button>
           ))}
-        </ButtonGroup>
+        </Button.Group>
       </div>
       <div>
         <span className="uppercase text-sm text-gray-500 mr-2">Tri</span>

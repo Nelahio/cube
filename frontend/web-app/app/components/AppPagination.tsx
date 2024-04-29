@@ -15,6 +15,7 @@ export default function AppPagination({
 }: Props) {
   return (
     <Pagination
+      color="purple"
       currentPage={currentPage}
       onPageChange={(e) => pageChanged(e)}
       totalPages={pageCount}
