@@ -7,6 +7,8 @@ exports.rechercheProduits = async (req, res) => {
   try {
     const {
       searchTerm,
+      category,
+      state,
       pageNumber,
       pageSize,
       seller,
@@ -18,6 +20,14 @@ exports.rechercheProduits = async (req, res) => {
 
     if (searchTerm) {
       conditions.$text = { $search: searchTerm };
+    }
+
+    if (category) {
+      conditions.category = { $regex: new RegExp(category, "i") };
+    }
+
+    if (state) {
+      conditions.state = { $regex: new RegExp(state, "i") };
     }
 
     if (seller) {
@@ -47,7 +57,8 @@ exports.rechercheProduits = async (req, res) => {
 
     // Calcul du nombre total de résultats correspondants
     const totalCount = await Produit.countDocuments(conditions);
-
+    console.log(conditions, "conditions");
+    console.log(conditions.$text, "conditions text");
     // Construction de la requête avec pagination pour récupérer les résultats
     let query = Produit.find(conditions)
       .skip((pageNumber - 1) * pageSize)
