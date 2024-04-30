@@ -57,8 +57,7 @@ exports.rechercheProduits = async (req, res) => {
 
     // Calcul du nombre total de résultats correspondants
     const totalCount = await Produit.countDocuments(conditions);
-    console.log(conditions, "conditions");
-    console.log(conditions.$text, "conditions text");
+
     // Construction de la requête avec pagination pour récupérer les résultats
     let query = Produit.find(conditions)
       .skip((pageNumber - 1) * pageSize)
