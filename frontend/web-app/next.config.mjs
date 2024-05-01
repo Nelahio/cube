@@ -17,6 +17,11 @@ const nextConfig = {
         hostname: "**.dior.com",
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "**.guerlain.com",
+        port: "",
+      },
     ],
   },
 };

@@ -27,7 +27,7 @@ export default function Recherche() {
         value={searchValue}
         onChange={onChange}
         type="text"
-        placeholder="Rechercher une enchère par sa marque, son modèle ou sa couleur"
+        placeholder="Rechercher une enchère par sa marque, son nom ou sa couleur"
         className="flex-grow pl-5 bg-transparent focus:outline-none border-transparent focus:border-transparent focus:ring-0 text-sm text-gray-600"
       />
       <button onClick={search}>

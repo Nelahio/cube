@@ -7,21 +7,32 @@ import Input from "../components/Input";
 import SelectInput from "../components/SelectInput";
 import TextareaInput from "../components/TextareaInput";
 import DateInput from "../components/DateInput";
+import { useRouter } from "next/navigation";
+import { createEnchere } from "../actions/enchereActions";
 
 export default function EnchereForm() {
+  const router = useRouter();
   const {
     control,
     handleSubmit,
     setFocus,
-    formState: { isSubmitting, isValid, errors },
+    formState: { isSubmitting, isValid },
   } = useForm({ mode: "onTouched" });
 
   useEffect(() => {
     setFocus("make");
   }, [setFocus]);
 
-  function onSubmit(data: FieldValues) {
-    console.log(data);
+  async function onSubmit(data: FieldValues) {
+    try {
+      const res = await createEnchere(data);
+      if (res.error) {
+        throw new Error(res.error);
+      }
+      router.push(`/encheres/details/${res.id}`);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   const categoryOptions = [
@@ -121,6 +132,7 @@ export default function EnchereForm() {
         </Button>
         <Button
           isProcessing={isSubmitting}
+          disabled={!isValid}
           type="submit"
           outline
           color={"success"}
