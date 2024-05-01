@@ -23,3 +23,7 @@ export async function updateEnchereTest() {
 export async function createEnchere(data: FieldValues) {
   return await fetchWrapper.post("encheres", data);
 }
+
+export async function getDetailedViewData(id: string): Promise<Enchere> {
+  return await fetchWrapper.get(`encheres/${id}`);
+}
