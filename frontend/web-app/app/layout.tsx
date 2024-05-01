@@ -1,5 +1,6 @@
 import "./globals.css";
 import Navbar from "./nav/Navbar";
+import ToasterProvider from "./providers/ToasterProvider";
 
 export const metadata = {
   title: "Cube",
@@ -12,8 +13,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="fr">
       <body>
+        <ToasterProvider />
         <Navbar />
         <main className="container mx-auto px-5 pt-10">{children}</main>
       </body>

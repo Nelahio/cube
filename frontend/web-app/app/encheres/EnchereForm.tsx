@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, TextInput } from "flowbite-react";
+import { Button, Toast } from "flowbite-react";
 import React, { useEffect } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import Input from "../components/Input";
@@ -9,6 +9,7 @@ import TextareaInput from "../components/TextareaInput";
 import DateInput from "../components/DateInput";
 import { useRouter } from "next/navigation";
 import { createEnchere } from "../actions/enchereActions";
+import toast from "react-hot-toast";
 
 export default function EnchereForm() {
   const router = useRouter();
@@ -27,11 +28,11 @@ export default function EnchereForm() {
     try {
       const res = await createEnchere(data);
       if (res.error) {
-        throw new Error(res.error);
+        throw res.error;
       }
       router.push(`/encheres/details/${res.id}`);
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      toast.error(error.status + " " + error.message);
     }
   }
 
