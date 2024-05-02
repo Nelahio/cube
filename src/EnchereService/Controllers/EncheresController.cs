@@ -91,7 +91,7 @@ public class EncheresController : ControllerBase
         enchere.Item.Description = updateEnchereDto.Description ?? enchere.Item.Description;
         enchere.Item.ImageUrl = updateEnchereDto.ImageUrl ?? enchere.Item.ImageUrl;
         enchere.Item.Category = updateEnchereDto.Category ?? enchere.Item.Category;
-        // enchere.Item.State = updateEnchereDto.State ?? enchere.Item.State;
+        enchere.Item.State = updateEnchereDto.State ?? enchere.Item.State;
 
         await _publishEndpoint.Publish<EnchereUpdated>(_mapper.Map<EnchereUpdated>(enchere));
 

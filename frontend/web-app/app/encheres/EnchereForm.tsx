@@ -1,36 +1,77 @@
 "use client";
 
-import { Button, Toast } from "flowbite-react";
+import { Button } from "flowbite-react";
 import React, { useEffect } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import Input from "../components/Input";
 import SelectInput from "../components/SelectInput";
 import TextareaInput from "../components/TextareaInput";
 import DateInput from "../components/DateInput";
-import { useRouter } from "next/navigation";
-import { createEnchere } from "../actions/enchereActions";
+import { usePathname, useRouter } from "next/navigation";
+import { createEnchere, updateEnchere } from "../actions/enchereActions";
 import toast from "react-hot-toast";
+import { Enchere } from "@/types";
 
-export default function EnchereForm() {
+type Props = {
+  enchere?: Enchere;
+};
+
+export default function EnchereForm({ enchere }: Props) {
   const router = useRouter();
+  const pathname = usePathname();
   const {
     control,
     handleSubmit,
     setFocus,
+    reset,
     formState: { isSubmitting, isValid },
   } = useForm({ mode: "onTouched" });
 
   useEffect(() => {
+    if (enchere) {
+      const {
+        make,
+        name,
+        state,
+        category,
+        description,
+        year,
+        color,
+        imageUrl,
+      } = enchere;
+      reset({
+        make,
+        name,
+        state,
+        category,
+        description,
+        year,
+        color,
+        imageUrl,
+      });
+    }
     setFocus("make");
   }, [setFocus]);
 
   async function onSubmit(data: FieldValues) {
     try {
-      const res = await createEnchere(data);
+      let id = "";
+      let res;
+      if (pathname === "/encheres/create") {
+        res = await createEnchere(data);
+        id = res.id;
+      } else {
+        console.log(enchere);
+        if (enchere) {
+          res = await updateEnchere(data, enchere.id);
+          console.log(data, "res");
+          id = enchere.id;
+        }
+      }
       if (res.error) {
         throw res.error;
       }
-      router.push(`/encheres/details/${res.id}`);
+      router.push(`/encheres/details/${id}`);
     } catch (error: any) {
       toast.error(error.status + " " + error.message);
     }
@@ -108,24 +149,27 @@ export default function EnchereForm() {
         control={control}
         rules={{ required: "L'image est obligatoire" }}
       />
-
-      <div className="grid grid-cols-2 gap-3">
-        <Input
-          label="Prix de réserve (entrez 0 si pas de réserve)"
-          name="reservePrice"
-          control={control}
-          type="number"
-          rules={{ required: "Le prix de réserve est obligatoire" }}
-        />
-        <DateInput
-          label="Fin de l'enchère"
-          name="auctionEnd"
-          control={control}
-          dateFormat={"dd MMMM yyyy HH:mm"}
-          showTimeSelect
-          rules={{ required: "La fin de l'enchère est obligatoire" }}
-        />
-      </div>
+      {pathname === "/encheres/create" && (
+        <>
+          <div className="grid grid-cols-2 gap-3">
+            <Input
+              label="Prix de réserve (entrez 0 si pas de réserve)"
+              name="reservePrice"
+              control={control}
+              type="number"
+              rules={{ required: "Le prix de réserve est obligatoire" }}
+            />
+            <DateInput
+              label="Fin de l'enchère"
+              name="auctionEnd"
+              control={control}
+              dateFormat={"dd MMMM yyyy HH:mm"}
+              showTimeSelect
+              rules={{ required: "La fin de l'enchère est obligatoire" }}
+            />
+          </div>
+        </>
+      )}
 
       <div className="flex justify-between">
         <Button outline color={"gray"}>
