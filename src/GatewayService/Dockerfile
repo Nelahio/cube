@@ -7,6 +7,7 @@ COPY src/EnchereService/EnchereService.csproj src/EnchereService/EnchereService.
 COPY src/GatewayService/GatewayService.csproj src/GatewayService/GatewayService.csproj
 COPY src/AuthentificationService/AuthentificationService.csproj src/AuthentificationService/AuthentificationService.csproj
 COPY src/OffreService/OffreService.csproj src/OffreService/OffreService.csproj
+COPY src/NotificationService/NotificationService.csproj src/NotificationService/NotificationService.csproj
 COPY src/Contracts/Contracts.csproj src/Contracts/Contracts.csproj
 
 RUN dotnet restore cube.sln

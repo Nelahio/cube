@@ -12,12 +12,12 @@ COPY src/Contracts/Contracts.csproj src/Contracts/Contracts.csproj
 
 RUN dotnet restore cube.sln
 
-COPY src/OffreService src/OffreService
+COPY src/NotificationService src/NotificationService
 COPY src/Contracts src/Contracts
-WORKDIR /app/src/OffreService
+WORKDIR /app/src/NotificationService
 RUN dotnet publish -c Release -o /app/src/out
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0
 WORKDIR /app
 COPY --from=build /app/src/out .
-ENTRYPOINT [ "dotnet", "OffreService.dll" ]
+ENTRYPOINT [ "dotnet", "NotificationService.dll" ]
