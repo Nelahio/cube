@@ -9,7 +9,7 @@ public class EnchereCreatedConsumer : IConsumer<EnchereCreated>
 {
     public async Task Consume(ConsumeContext<EnchereCreated> context)
     {
-        Console.WriteLine("--> Consuming enchere created");
+        Console.WriteLine("--> Consuming enchere created :" + context.Message.Id);
 
         var enchere = new Enchere
         {

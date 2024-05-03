@@ -1,5 +1,5 @@
 import { Enchere, PagedResult } from "@/types";
-import { create } from "zustand";
+import { createWithEqualityFn } from "zustand/traditional";
 
 type State = {
   encheres: Enchere[];
@@ -18,7 +18,7 @@ const initialState: State = {
   totalCount: 0,
 };
 
-export const useEnchereStore = create<State & Actions>((set) => ({
+export const useEnchereStore = createWithEqualityFn<State & Actions>((set) => ({
   ...initialState,
 
   setData: (data: PagedResult<Enchere>) => {
