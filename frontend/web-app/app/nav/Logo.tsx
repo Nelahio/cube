@@ -1,5 +1,6 @@
 "use client";
 
+import logo from "../../public/logoCube.png";
 import { useParamsStore } from "@/hooks/useParamsStore";
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
@@ -16,12 +17,11 @@ export default function Logo() {
   }
 
   return (
-    <div
-      onClick={doReset}
-      className="cursor-pointer flex items-center gap-2 text-3xl font-semibold text-purple-700 tracking-tight hover:text-yellow-400 transition-colors"
-    >
-      <GiDelicatePerfume size={40} />
-      <div>Cube Enchères</div>
+    <div onClick={doReset} className="cursor-pointer flex w-[3%] items-center">
+      <div>
+        <img src={logo.src} alt="Logo" />
+      </div>
+      {/* <div>Cube</div> */}
     </div>
   );
 }
