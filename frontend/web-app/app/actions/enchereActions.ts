@@ -2,35 +2,39 @@
 
 import { Enchere, PagedResult } from "@/types";
 import { getTokenWorkaround } from "./authActions";
+import { fetchWrapper } from "@/lib/fetchWrapper";
+import { FieldValues } from "react-hook-form";
+import { revalidatePath } from "next/cache";
 
 export async function getData(query: string): Promise<PagedResult<Enchere>> {
-  const res = await fetch(`http://localhost:6001/recherche${query}`);
-
-  if (!res.ok) throw new Error("Erreur lors de la récupération des données");
-
-  return res.json();
+  return await fetchWrapper.get(`recherche${query}`);
 }
 
-export async function UpdateEnchereTest() {
+export async function updateEnchereTest() {
   const data = {
-    size: Math.floor(Math.random() * 10000) + 1,
+    description: "Nouvelle description",
   };
 
-  const token = await getTokenWorkaround();
-
-  const res = await fetch(
-    "http://localhost:6001/encheres/6a5011a1-fe1f-47df-9a32-b5346b289391",
-    {
-      method: "PUT",
-      headers: {
-        "Content-type": "application/json",
-        Authorization: "Bearer " + token?.access_token,
-      },
-      body: JSON.stringify(data),
-    }
+  return await fetchWrapper.put(
+    "encheres/6a5011a1-fe1f-47df-9a32-b5346b289391",
+    data
   );
+}
 
-  if (!res.ok) return { status: res.status, message: res.statusText };
+export async function createEnchere(data: FieldValues) {
+  return await fetchWrapper.post("encheres", data);
+}
 
-  return res.statusText;
+export async function getDetailedViewData(id: string): Promise<Enchere> {
+  return await fetchWrapper.get(`encheres/${id}`);
+}
+
+export async function updateEnchere(data: FieldValues, id: string) {
+  const res = await fetchWrapper.put(`encheres/${id}`, data);
+  revalidatePath(`/encheres/${id}`);
+  return res;
+}
+
+export async function deleteEnchere(id: string) {
+  return await fetchWrapper.del(`encheres/${id}`);
 }

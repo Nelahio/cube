@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { UpdateEnchereTest } from "../actions/enchereActions";
+import { updateEnchereTest } from "../actions/enchereActions";
 import { Button } from "flowbite-react";
 
 export default function AuthTest() {
@@ -11,7 +11,7 @@ export default function AuthTest() {
   function doUpdate() {
     setResult(undefined);
     setLoading(true);
-    UpdateEnchereTest()
+    updateEnchereTest()
       .then((res) => setResult(res))
       .finally(() => setLoading(false));
   }
