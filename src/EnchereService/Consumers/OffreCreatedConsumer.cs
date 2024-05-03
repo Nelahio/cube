@@ -2,7 +2,7 @@
 using EnchereService.Data;
 using MassTransit;
 
-namespace EnchereService;
+namespace EnchereService.Consumers;
 
 public class OffreCreatedConsumer : IConsumer<OffreCreated>
 {
