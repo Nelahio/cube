@@ -33,15 +33,17 @@ const consumeOffreCreated = async () => {
             )}`
           );
 
-          const produit = await Produit.findOne({ _id: bidPlaced.AuctionId });
+          const produit = await Produit.findOne({
+            _id: offreCreated.auctionId,
+          });
 
           await retry(
             async (bail, attempt) => {
               if (
-                offreCreated.BidStatus.includes("Accepted") &&
-                offreCreated.Amount > produit.currentHighBid
+                offreCreated.bidStatus.includes("Accepted") &&
+                offreCreated.amount > produit.currentHighBid
               ) {
-                produit.currentHighBid = offreCreated.Amount;
+                produit.currentHighBid = offreCreated.amount;
                 await produit.save();
               }
             },

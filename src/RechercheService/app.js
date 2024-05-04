@@ -4,6 +4,7 @@ const produitRoutes = require("./routes/rechercheRoutes");
 const consumeEnchereCreated = require("./consumers/enchereCreatedConsumer");
 const consumeEnchereUpdated = require("./consumers/enchereUpdatedConsumer");
 const consumeEnchereDeleted = require("./consumers/enchereDeletedConsumer");
+const consumeOffreCreated = require("./consumers/offreCreatedConsumer");
 require("./services/requestHelpers/mappingProfiles");
 
 const app = express();
@@ -38,6 +39,15 @@ consumeEnchereDeleted()
   .catch((error) =>
     console.error(
       "Erreur lors du démarrage du consommateur EnchereDeleted :",
+      error
+    )
+  );
+
+consumeOffreCreated()
+  .then(() => console.log("Consommateur OffreCreated démarré avec succès."))
+  .catch((error) =>
+    console.error(
+      "Erreur lors du démarrage du consommateur OffreCreated :",
       error
     )
   );
