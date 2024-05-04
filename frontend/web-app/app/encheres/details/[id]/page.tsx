@@ -10,6 +10,7 @@ import DetailedSpecs from "./DetailedSpecs";
 import { getCurrentUser } from "@/app/actions/authActions";
 import EditButton from "./EditButton";
 import DeleteButton from "./DeleteButton";
+import OffreProduit from "./OffreProduit";
 
 export default async function Details({ params }: { params: { id: string } }) {
   const data = await getDetailedViewData(params.id);
@@ -42,9 +43,7 @@ export default async function Details({ params }: { params: { id: string } }) {
         <div className="border-2 rounded-lg p-2 bg-gray-100">
           <Heading title="Offres" />
           {offres.map((offre) => (
-            <p key={offre.id}>
-              {offre.bidder} - {offre.amount}
-            </p>
+            <OffreProduit key={offre.id} offre={offre} />
           ))}
         </div>
       </div>
