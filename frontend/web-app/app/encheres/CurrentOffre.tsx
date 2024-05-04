@@ -6,8 +6,7 @@ type Props = {
 };
 
 export default function CurrentOffre({ montant, reservePrice }: Props) {
-  console.log(`${montant} et ${reservePrice}`);
-  const text = montant ? "€" + montant : "Aucune offre";
+  const text = montant ? montant + "€" : "Aucune offre";
   const color = montant
     ? montant > reservePrice
       ? "bg-green-600"
