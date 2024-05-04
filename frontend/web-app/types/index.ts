@@ -5,7 +5,7 @@ export type PagedResult<T> = {
 };
 
 export type Enchere = {
-  _id: string;
+  id: string;
   reservePrice: number;
   seller: string;
   winner?: any;

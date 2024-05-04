@@ -11,11 +11,11 @@ import { getCurrentUser } from "@/app/actions/authActions";
 import EditButton from "./EditButton";
 import DeleteButton from "./DeleteButton";
 import OffreProduit from "./OffreProduit";
+import OffreList from "./OffreList";
 
 export default async function Details({ params }: { params: { id: string } }) {
   const data = await getDetailedViewData(params.id);
   const user = await getCurrentUser();
-  const offres = await getOffresForEnchere(params.id);
   return (
     <div>
       <div className="flex justify-between">
@@ -39,13 +39,7 @@ export default async function Details({ params }: { params: { id: string } }) {
         <div className="w-full bg-gray-200 aspect-h-10 aspect-w-16 rounded-lg overflow-hidden">
           <EnchereImage imageUrl={data.imageUrl} />
         </div>
-
-        <div className="border-2 rounded-lg p-2 bg-gray-100">
-          <Heading title="Offres" />
-          {offres.map((offre) => (
-            <OffreProduit key={offre.id} offre={offre} />
-          ))}
-        </div>
+        <OffreList user={user} enchere={data} />
       </div>
 
       <div className="mt-3 grid grid-cols-1 rounded-lg">

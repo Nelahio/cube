@@ -22,7 +22,7 @@ export default function OffreProduit({ offre }: Props) {
         break;
       case "TooLow":
         bgColor = "bg-red-200";
-        text = "L'offre est trop basse";
+        text = "Offre trop basse";
         break;
       default:
         bgColor = "bg-red-200";
@@ -41,7 +41,7 @@ export default function OffreProduit({ offre }: Props) {
       <div className="flex flex-col">
         <span>Enchérisseur : {offre.bidder}</span>
         <span className="text-gray-700 text-sm">
-          Moment :{" "}
+          Le{" "}
           {format(new Date(offre.bidTime), "dd MMMM yyyy HH:mm", {
             locale: fr,
           })}
