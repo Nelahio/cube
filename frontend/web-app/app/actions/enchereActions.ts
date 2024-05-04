@@ -1,6 +1,6 @@
 "use server";
 
-import { Enchere, PagedResult } from "@/types";
+import { Enchere, Offre, PagedResult } from "@/types";
 import { getTokenWorkaround } from "./authActions";
 import { fetchWrapper } from "@/lib/fetchWrapper";
 import { FieldValues } from "react-hook-form";
@@ -37,4 +37,8 @@ export async function updateEnchere(data: FieldValues, id: string) {
 
 export async function deleteEnchere(id: string) {
   return await fetchWrapper.del(`encheres/${id}`);
+}
+
+export async function getOffresForEnchere(id: string): Promise<Offre[]> {
+  return await fetchWrapper.get(`offres/${id}`);
 }

@@ -1,4 +1,7 @@
-import { getDetailedViewData } from "@/app/actions/enchereActions";
+import {
+  getDetailedViewData,
+  getOffresForEnchere,
+} from "@/app/actions/enchereActions";
 import Heading from "@/app/components/Heading";
 import React from "react";
 import CountdownTimer from "../../CountdownTimer";
@@ -11,6 +14,7 @@ import DeleteButton from "./DeleteButton";
 export default async function Details({ params }: { params: { id: string } }) {
   const data = await getDetailedViewData(params.id);
   const user = await getCurrentUser();
+  const offres = await getOffresForEnchere(params.id);
   return (
     <div>
       <div className="flex justify-between">
@@ -37,6 +41,11 @@ export default async function Details({ params }: { params: { id: string } }) {
 
         <div className="border-2 rounded-lg p-2 bg-gray-100">
           <Heading title="Offres" />
+          {offres.map((offre) => (
+            <p key={offre.id}>
+              {offre.bidder} - {offre.amount}
+            </p>
+          ))}
         </div>
       </div>
 
