@@ -38,7 +38,9 @@ export default function OffreForm({ enchereId, highBid }: Props) {
         type="number"
         {...register("amount")}
         className="input-custom text-sm text-gray-600"
-        placeholder={`Saisissez votre offre (offre minimale de ${highBid}€)`}
+        placeholder={`Saisissez votre offre (offre minimale de ${
+          highBid + 1
+        }€)`}
       />
     </form>
   );

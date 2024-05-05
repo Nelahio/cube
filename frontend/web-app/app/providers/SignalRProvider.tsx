@@ -2,15 +2,19 @@
 
 import { useEnchereStore } from "@/hooks/useEnchereStore";
 import { useOffreStore } from "@/hooks/useOffreStore";
-import { Offre } from "@/types";
+import { Enchere, Offre } from "@/types";
 import { HubConnection, HubConnectionBuilder } from "@microsoft/signalr";
+import { User } from "next-auth";
 import React, { ReactNode, useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import EnchereCreatedToast from "../components/EnchereCreatedToast";
 
 type Props = {
   children: ReactNode;
+  user: User | null;
 };
 
-export default function SignalRProvider({ children }: Props) {
+export default function SignalRProvider({ children, user }: Props) {
   const [connection, setConnection] = useState<HubConnection | null>(null);
   const setCurrentPrice = useEnchereStore((state) => state.setCurrentPrice);
   const addOffre = useOffreStore((state) => state.addOffre);
@@ -36,6 +40,14 @@ export default function SignalRProvider({ children }: Props) {
               setCurrentPrice(offre.auctionId, offre.amount);
             }
             addOffre(offre);
+          });
+
+          connection.on("EnchereCreated", (enchere: Enchere) => {
+            if (user?.username !== enchere.seller) {
+              return toast(<EnchereCreatedToast enchere={enchere} />, {
+                duration: 10000,
+              });
+            }
           });
         })
         .catch((error) => console.log(error));
