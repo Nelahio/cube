@@ -26,7 +26,7 @@ export default function OffreProduit({ offre }: Props) {
         break;
       default:
         bgColor = "bg-red-200";
-        text = "Offre faite après que l'enchère soit terminée";
+        text = "Offre faite après la fin de l'enchère";
         break;
     }
     return { bgColor, text };

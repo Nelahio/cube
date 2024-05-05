@@ -2,12 +2,14 @@
 
 import { useEnchereStore } from "@/hooks/useEnchereStore";
 import { useOffreStore } from "@/hooks/useOffreStore";
-import { Enchere, Offre } from "@/types";
+import { Enchere, EnchereFinished, Offre } from "@/types";
 import { HubConnection, HubConnectionBuilder } from "@microsoft/signalr";
 import { User } from "next-auth";
 import React, { ReactNode, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import EnchereCreatedToast from "../components/EnchereCreatedToast";
+import { getDetailedViewData } from "../actions/enchereActions";
+import EnchereFinishedToast from "../components/EnchereFinishedToast";
 
 type Props = {
   children: ReactNode;
@@ -49,6 +51,27 @@ export default function SignalRProvider({ children, user }: Props) {
               });
             }
           });
+
+          connection.on(
+            "EnchereFinished",
+            (finishedEnchere: EnchereFinished) => {
+              const enchere = getDetailedViewData(finishedEnchere.auctionId);
+              return toast.promise(
+                enchere,
+                {
+                  loading: "Chargement",
+                  success: (enchere) => (
+                    <EnchereFinishedToast
+                      finishedEnchere={finishedEnchere}
+                      enchere={enchere}
+                    />
+                  ),
+                  error: (err) => "Enchere terminée !",
+                },
+                { success: { duration: 10000, icon: null } }
+              );
+            }
+          );
         })
         .catch((error) => console.log(error));
     }

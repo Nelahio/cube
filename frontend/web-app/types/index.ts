@@ -33,3 +33,11 @@ export type Offre = {
   amount: number;
   bidStatus: string;
 };
+
+export type EnchereFinished = {
+  itemSold: boolean;
+  auctionId: string;
+  winner?: string;
+  seller: string;
+  amount?: number;
+};
