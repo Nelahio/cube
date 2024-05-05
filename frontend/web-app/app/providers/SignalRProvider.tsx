@@ -32,10 +32,10 @@ export default function SignalRProvider({ children }: Props) {
           console.log("Connecté au hub de notification");
 
           connection.on("OffreCreated", (offre: Offre) => {
-            console.log("Evénement OffreCreated reçu");
             if (offre.bidStatus.includes("Accepted")) {
               setCurrentPrice(offre.auctionId, offre.amount);
             }
+            addOffre(offre);
           });
         })
         .catch((error) => console.log(error));
