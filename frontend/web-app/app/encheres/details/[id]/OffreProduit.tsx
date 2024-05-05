@@ -31,7 +31,6 @@ export default function OffreProduit({ offre }: Props) {
     }
     return { bgColor, text };
   }
-
   return (
     <div
       className={`border-gray-300 border-2 px-3 py-2 rounded-lg flex justify-between items-center mb-2 ${

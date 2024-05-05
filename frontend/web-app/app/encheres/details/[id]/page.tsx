@@ -10,7 +10,6 @@ import DetailedSpecs from "./DetailedSpecs";
 import { getCurrentUser } from "@/app/actions/authActions";
 import EditButton from "./EditButton";
 import DeleteButton from "./DeleteButton";
-import OffreProduit from "./OffreProduit";
 import OffreList from "./OffreList";
 
 export default async function Details({ params }: { params: { id: string } }) {

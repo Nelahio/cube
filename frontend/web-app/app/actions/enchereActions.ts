@@ -42,3 +42,13 @@ export async function deleteEnchere(id: string) {
 export async function getOffresForEnchere(id: string): Promise<Offre[]> {
   return await fetchWrapper.get(`offres/${id}`);
 }
+
+export async function createOffreForEnchere(
+  enchereId: string,
+  montant: number
+) {
+  return await fetchWrapper.post(
+    `offres?enchereId=${enchereId}&montant=${montant}`,
+    {}
+  );
+}

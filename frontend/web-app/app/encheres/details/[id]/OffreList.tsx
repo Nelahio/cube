@@ -8,6 +8,8 @@ import { User } from "next-auth";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import OffreProduit from "./OffreProduit";
+import EmptyFilter from "@/app/components/EmptyFilter";
+import OffreForm from "./OffreForm";
 
 type Props = {
   user: User | null;
@@ -18,6 +20,11 @@ export default function OffreList({ user, enchere }: Props) {
   const [loading, setLoading] = useState(true);
   const offres = useOffreStore((state) => state.offres);
   const setOffres = useOffreStore((state) => state.setOffres);
+
+  const highBid = offres.reduce(
+    (prev, current) => (prev > current.amount ? prev : current.amount),
+    0
+  );
 
   useEffect(() => {
     getOffresForEnchere(enchere.id)
@@ -36,11 +43,42 @@ export default function OffreList({ user, enchere }: Props) {
   if (loading) return <span>Chargement des offres...</span>;
 
   return (
-    <div className="border-2 rounded-lg p-2 bg-gray-100">
-      <Heading title="Offres" />
-      {offres.map((offre) => (
-        <OffreProduit key={offre.id} offre={offre} />
-      ))}
+    <div className="rounded-lg shadow-md">
+      <div className="py-2 px-4 bg-white">
+        <div className="sticky top-0 bg-white p-2">
+          <Heading
+            title={`L'offre actuelle la plus élevée est de ${highBid}€`}
+          />
+        </div>
+      </div>
+
+      <div className="overflow-auto h-[400px] flex flex-col-reverse px-2">
+        {offres.length === 0 ? (
+          <EmptyFilter
+            title="Aucune offre pour cette enchère"
+            subtitle="N'hésitez pas à faire une offre"
+          />
+        ) : (
+          <>
+            {offres.map((offre) => (
+              <OffreProduit key={offre.id} offre={offre} />
+            ))}
+          </>
+        )}
+      </div>
+      <div className="px-2 pb-2 text-gray-500">
+        {!user ? (
+          <div className="flex items-center justify-center p-2 text-lg font-semibold">
+            Connectez-vous pour faire une offre
+          </div>
+        ) : user && user.username === enchere.seller ? (
+          <div className="flex items-center justify-center p-2 text-lg font-semibold">
+            Vous ne pouvez pas enchérir sur votre propre enchère
+          </div>
+        ) : (
+          <OffreForm enchereId={enchere.id} highBid={highBid} />
+        )}
+      </div>
     </div>
   );
 }
