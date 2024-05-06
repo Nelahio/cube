@@ -21,6 +21,11 @@ export default function OffreForm({ enchereId, highBid }: Props) {
   const addOffre = useOffreStore((state) => state.addOffre);
 
   function onSubmit(data: FieldValues) {
+    if (data.amount <= highBid) {
+      reset();
+      return toast.error("L'offre doit être d'au moins " + (highBid + 1) + "€");
+    }
+
     createOffreForEnchere(enchereId, +data.amount)
       .then((offre) => {
         if (offre.error) throw offre.error;
