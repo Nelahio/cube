@@ -34,15 +34,12 @@ export default async function Details({ params }: { params: { id: string } }) {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-6 mt-3">
+      <div className="grid grid-cols-3 gap-10 mt-2">
         <div className="w-full bg-gray-200 aspect-h-10 aspect-w-16 rounded-lg overflow-hidden">
           <EnchereImage imageUrl={data.imageUrl} />
         </div>
-        <OffreList user={user} enchere={data} />
-      </div>
-
-      <div className="mt-3 grid grid-cols-1 rounded-lg">
         <DetailedSpecs enchere={data} />
+        <OffreList user={user} enchere={data} />
       </div>
     </div>
   );

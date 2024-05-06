@@ -1,10 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import logo from "../../public/logoCube.png";
 import { useParamsStore } from "@/hooks/useParamsStore";
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
-import { GiDelicatePerfume } from "react-icons/gi";
 
 export default function Logo() {
   const router = useRouter();
@@ -17,9 +17,9 @@ export default function Logo() {
   }
 
   return (
-    <div onClick={doReset} className="cursor-pointer flex w-[3%] items-center">
+    <div onClick={doReset} className="cursor-pointer flex w-[10%] items-center">
       <div>
-        <img src={logo.src} alt="Logo" />
+        <Image src={logo.src} alt="Logo" width={60} height={60} />
       </div>
       {/* <div>Cube</div> */}
     </div>
