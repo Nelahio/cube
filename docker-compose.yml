@@ -111,3 +111,18 @@ services:
       - 7004:80
     depends_on:
       - rabbitmq
+  web-app:
+    image: nelahio/web-app
+    build:
+      context: .
+      dockerfile: frontend/web-app/Dockerfile
+    volumes:
+      - /var/lib/web/data
+    ports:
+      - 3000:3000
+    environment:
+      - NEXTAUTH_SECRET=vraimentsecret
+      - NEXTAUTH_URL=http://web-app
+      - API_URL=http://gateway-service/
+      - AUTH_URL=http://authentification-service
+      - NEXT_PUBLIC_NOTIFY=http://gateway-service/notifications
