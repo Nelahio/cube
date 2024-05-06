@@ -20,9 +20,17 @@ export default function OffreList({ user, enchere }: Props) {
   const [loading, setLoading] = useState(true);
   const offres = useOffreStore((state) => state.offres);
   const setOffres = useOffreStore((state) => state.setOffres);
+  const open = useOffreStore((state) => state.open);
+  const setOpen = useOffreStore((state) => state.setOpen);
+  const openForOffres = new Date(enchere.auctionEnd) > new Date();
 
   const highBid = offres.reduce(
-    (prev, current) => (prev > current.amount ? prev : current.amount),
+    (prev, current) =>
+      prev > current.amount
+        ? prev
+        : current.bidStatus.includes("Accepted")
+        ? current.amount
+        : prev,
     0
   );
 
@@ -39,6 +47,10 @@ export default function OffreList({ user, enchere }: Props) {
       })
       .finally(() => setLoading(false));
   }, [enchere.id, setLoading, setOffres]);
+
+  useEffect(() => {
+    setOpen(openForOffres);
+  }, [openForOffres, setOpen]);
 
   if (loading) return <span>Chargement des offres...</span>;
 
@@ -67,7 +79,11 @@ export default function OffreList({ user, enchere }: Props) {
         )}
       </div>
       <div className="px-2 pb-2 text-gray-500">
-        {!user ? (
+        {!open ? (
+          <div className="flex items-center justify-center p-2 text-lg font-semibold">
+            Cette enchère est terminée
+          </div>
+        ) : !user ? (
           <div className="flex items-center justify-center p-2 text-lg font-semibold">
             Connectez-vous pour faire une offre
           </div>
