@@ -1,5 +1,7 @@
 "use client";
 
+import { useOffreStore } from "@/hooks/useOffreStore";
+import { usePathname } from "next/navigation";
 import React from "react";
 import Countdown, { zeroPad } from "react-countdown";
 
@@ -45,9 +47,22 @@ const renderer = ({
 };
 
 export default function CountdownTimer({ auctionEnd }: Props) {
+  const setOpen = useOffreStore((state) => state.setOpen);
+  const pathname = usePathname();
+
+  function enchereFinished() {
+    if (pathname.startsWith("/encheres/details")) {
+      setOpen(false);
+    }
+  }
+
   return (
     <div>
-      <Countdown date={auctionEnd} renderer={renderer} />
+      <Countdown
+        date={auctionEnd}
+        renderer={renderer}
+        onComplete={enchereFinished}
+      />
     </div>
   );
 }

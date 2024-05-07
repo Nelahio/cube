@@ -7,8 +7,11 @@ const axiosInstance = axios.create({
 });
 
 axiosRetry(axiosInstance, {
-  retries: 3,
-  retryDelay: axiosRetry.exponentialDelay,
+  retries: 5,
+  retryDelay: (retryCount) => {
+    console.log(`Axios - retry attempt: ${retryCount}`);
+    return retryCount * 2000;
+  },
   retryCondition: (error) => {
     return axiosRetry.isRetryableError(error) || error.response.status === 404;
   },

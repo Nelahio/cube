@@ -3,6 +3,7 @@ import CountdownTimer from "./CountdownTimer";
 import EnchereImage from "./EnchereImage";
 import { Enchere } from "@/types";
 import Link from "next/link";
+import CurrentOffre from "./CurrentOffre";
 
 type Props = {
   enchere: Enchere;
@@ -16,6 +17,12 @@ export default function EnchereCard({ enchere }: Props) {
           <EnchereImage imageUrl={enchere.imageUrl} />
           <div className="absolute bottom-2 left-2">
             <CountdownTimer auctionEnd={enchere.auctionEnd} />
+          </div>
+          <div className="absolute top-2 right-2">
+            <CurrentOffre
+              reservePrice={enchere.reservePrice}
+              montant={enchere.currentHighBid}
+            />
           </div>
         </div>
       </div>

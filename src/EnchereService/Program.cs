@@ -24,6 +24,7 @@ builder.Services.AddMassTransit(x =>
         o.UsePostgres();
         o.UseBusOutbox();
     });
+
     x.AddConsumersFromNamespaceContaining<EnchereCreatedFaultConsumer>();
     x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("enchere", false));
     x.UsingRabbitMq((context, cfg) =>
@@ -39,19 +40,19 @@ builder.Services.AddMassTransit(x =>
 });
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-.AddJwtBearer(options =>
-{
-    options.Authority = builder.Configuration["AuthentificationServiceUrl"];
-    options.RequireHttpsMetadata = false;
-    options.TokenValidationParameters.ValidateAudience = false;
-    options.TokenValidationParameters.NameClaimType = "username";
-});
+    .AddJwtBearer(options =>
+    {
+        options.Authority = builder.Configuration["AuthentificationServiceUrl"];
+        options.RequireHttpsMetadata = false;
+        options.TokenValidationParameters.ValidateAudience = false;
+        options.TokenValidationParameters.NameClaimType = "username";
+    });
+
+builder.Services.AddGrpc();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-builder.Services.AddGrpc();
 
 var app = builder.Build();
 

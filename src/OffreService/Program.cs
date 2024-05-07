@@ -2,9 +2,9 @@ using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using MongoDB.Driver;
 using MongoDB.Entities;
-using OffreService;
 using OffreService.Consumers;
 using OffreService.Services;
+using Contracts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +15,9 @@ builder.Services.AddControllers();
 builder.Services.AddMassTransit(x =>
 {
     x.AddConsumersFromNamespaceContaining<EnchereCreatedConsumer>();
+
     x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("offres", false));
+    
     x.UsingRabbitMq((context, cfg) =>
     {
         cfg.Host(builder.Configuration["RabbitMq:Host"], "/", host =>
@@ -52,8 +54,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

@@ -1,11 +1,9 @@
-﻿
-
-using MassTransit;
+﻿using MassTransit;
 using MongoDB.Entities;
 using Contracts;
 using OffreService.Models;
 
-namespace OffreService;
+namespace OffreService.Services;
 
 public class CheckEnchereFinished : BackgroundService
 {
@@ -27,6 +25,8 @@ public class CheckEnchereFinished : BackgroundService
         while (!stoppingToken.IsCancellationRequested)
         {
             await CheckEncheres(stoppingToken);
+
+            await Task.Delay(5000, stoppingToken);
         }
     }
 

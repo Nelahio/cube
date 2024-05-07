@@ -50,7 +50,7 @@ export default function UserActions({ user }: Props) {
         icon={AiOutlineLogout}
         onClick={() => signOut({ callbackUrl: "/" })}
       >
-        <Link href={"/session"}>Déconnexion</Link>
+        Déconnexion
       </Dropdown.Item>
     </Dropdown>
   );

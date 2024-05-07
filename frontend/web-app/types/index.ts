@@ -6,6 +6,7 @@ export type PagedResult<T> = {
 
 export type Enchere = {
   _id: string;
+  id: string;
   reservePrice: number;
   seller: string;
   winner?: any;
@@ -23,4 +24,21 @@ export type Enchere = {
   imageUrl: string;
   category: string;
   state: string;
+};
+
+export type Offre = {
+  id: string;
+  auctionId: string;
+  bidder: string;
+  bidTime: string;
+  amount: number;
+  bidStatus: string;
+};
+
+export type EnchereFinished = {
+  itemSold: boolean;
+  auctionId: string;
+  winner?: string;
+  seller: string;
+  amount?: number;
 };

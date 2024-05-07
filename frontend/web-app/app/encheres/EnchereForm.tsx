@@ -51,7 +51,7 @@ export default function EnchereForm({ enchere }: Props) {
       });
     }
     setFocus("make");
-  }, [setFocus]);
+  }, [enchere, reset, setFocus]);
 
   async function onSubmit(data: FieldValues) {
     try {
