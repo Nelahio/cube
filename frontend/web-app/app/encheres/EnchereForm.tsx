@@ -172,7 +172,7 @@ export default function EnchereForm({ enchere }: Props) {
       )}
 
       <div className="flex justify-between">
-        <Button outline color={"gray"}>
+        <Button outline color={"gray"} onClick={router.back}>
           Annuler
         </Button>
         <Button
