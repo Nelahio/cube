@@ -1,3 +1,4 @@
+import { EnvProvider } from "@/env/provider";
 import { getCurrentUser } from "./actions/authActions";
 import "./globals.css";
 import Navbar from "./nav/Navbar";
@@ -21,7 +22,9 @@ export default async function RootLayout({
         <ToasterProvider />
         <Navbar />
         <main className="container mx-auto px-5 pt-10">
-          <SignalRProvider user={user}>{children}</SignalRProvider>
+          <EnvProvider>
+            <SignalRProvider user={user}>{children}</SignalRProvider>
+          </EnvProvider>
         </main>
       </body>
     </html>

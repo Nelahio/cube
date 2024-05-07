@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import EnchereCreatedToast from "../components/EnchereCreatedToast";
 import { getDetailedViewData } from "../actions/enchereActions";
 import EnchereFinishedToast from "../components/EnchereFinishedToast";
+import { useEnv } from "@/env/provider";
 
 type Props = {
   children: ReactNode;
@@ -20,15 +21,22 @@ export default function SignalRProvider({ children, user }: Props) {
   const [connection, setConnection] = useState<HubConnection | null>(null);
   const setCurrentPrice = useEnchereStore((state) => state.setCurrentPrice);
   const addOffre = useOffreStore((state) => state.addOffre);
+  const env = useEnv();
+  console.log(env.NEXT_PUBLIC_NOTIFY, "NEXT");
+  console.log(process.env.NEXT_PUBLIC_NOTIFY, "process");
 
   useEffect(() => {
+    if (!env.NEXT_PUBLIC_NOTIFY) {
+      console.log("L'URL de notification n'est pas disponible");
+      return;
+    }
     const newConnection = new HubConnectionBuilder()
-      .withUrl(process.env.NEXT_PUBLIC_NOTIFY!)
+      .withUrl(env.NEXT_PUBLIC_NOTIFY!)
       .withAutomaticReconnect()
       .build();
 
     setConnection(newConnection);
-  }, []);
+  }, [env]);
 
   useEffect(() => {
     if (connection) {
