@@ -10,7 +10,7 @@ export const authOptions: NextAuthOptions = {
       id: "id-server",
       clientId: "nextApp",
       clientSecret: "secret",
-      issuer: "http://localhost:5000",
+      issuer: process.env.AUTH_URL,
       authorization: { params: { scope: "openid profile cubeApp" } },
       idToken: true,
     }),
