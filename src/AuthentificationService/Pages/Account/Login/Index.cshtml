@@ -3,8 +3,7 @@
 
 <div class="login-page">
     <div class="lead">
-        <h1>Login</h1>
-        <p>Choose how to login</p>
+        <h1>Connexion</h1>
     </div>
 
     <partial name="_ValidationSummary" />
@@ -16,7 +15,7 @@
             <div class="col-sm-6">
                 <div class="card">
                     <div class="card-header">
-                        <h2>Local Account</h2>
+                        <h2>Compte local</h2>
                     </div>
 
                     <div class="card-body">
@@ -25,11 +24,11 @@
 
                             <div class="form-group">
                                 <label asp-for="Input.Username"></label>
-                                <input class="form-control" placeholder="Username" asp-for="Input.Username" autofocus>
+                                <input class="form-control" placeholder="Pseudo" asp-for="Input.Username" autofocus>
                             </div>
                             <div class="form-group">
                                 <label asp-for="Input.Password"></label>
-                                <input type="password" class="form-control" placeholder="Password" asp-for="Input.Password" autocomplete="off">
+                                <input type="password" class="form-control" placeholder="Mot de passe" asp-for="Input.Password" autocomplete="off">
                             </div>
                             
                             @if (Model.View.AllowRememberLogin)
@@ -45,7 +44,7 @@
                             }
 
                             <a class="pb-2 d-block" asp-page="../Register/Index" asp-route-returnUrl="@Model.Input.ReturnUrl">
-                                Nouvel utilisateur ? Inscrivez-vous
+                                Nouvel utilisateur ? Inscrivez-vous !
                             </a>
                             
                             <button class="btn btn-primary" name="Input.Button" value="login">Connexion</button>
