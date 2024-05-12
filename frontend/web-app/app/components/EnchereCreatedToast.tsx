@@ -22,7 +22,12 @@ export default function EnchereCreatedToast({ enchere }: Props) {
           className="rounded-lg w-auto h-auto"
         />
         <span>
-          Nouvelle enchère ! {enchere.make} {enchere.name} a été ajoutée
+          Nouvelle enchère !
+          <strong>
+            {" "}
+            {enchere.make} {enchere.name}{" "}
+          </strong>
+          a été ajoutée.
         </span>
       </div>
     </Link>

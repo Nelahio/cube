@@ -27,12 +27,17 @@ export default function EnchereFinishedToast({
         />
         <div className="flex flex-col">
           <span>
-            L&apos;enchère {enchere.make} {enchere.name} est terminée !
+            L&apos;enchère{" "}
+            <strong>
+              {enchere.make} {enchere.name}
+            </strong>{" "}
+            est terminée !
           </span>
           {finishedEnchere.itemSold && finishedEnchere.amount ? (
             <p>
-              Félicitations à {finishedEnchere.winner} qui a gagné cette enchère
-              pour {finishedEnchere.amount}€ !
+              Félicitations à <strong>{finishedEnchere.winner}</strong> qui a
+              gagné cette enchère pour{" "}
+              <strong>{finishedEnchere.amount}€</strong> !
             </p>
           ) : (
             <p>Ce produit ne s&apos;est pas vendu.</p>

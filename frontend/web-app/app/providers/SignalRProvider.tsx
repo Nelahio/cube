@@ -20,10 +20,14 @@ export default function SignalRProvider({ children, user }: Props) {
   const [connection, setConnection] = useState<HubConnection | null>(null);
   const setCurrentPrice = useEnchereStore((state) => state.setCurrentPrice);
   const addOffre = useOffreStore((state) => state.addOffre);
+  const apiUrl =
+    process.env.NODE_ENV === "production"
+      ? "https://api.cube.com/notifications"
+      : process.env.NEXT_PUBLIC_NOTIFY_URL;
 
   useEffect(() => {
     const newConnection = new HubConnectionBuilder()
-      .withUrl(process.env.NEXT_PUBLIC_NOTIFY!)
+      .withUrl(apiUrl!)
       .withAutomaticReconnect()
       .build();
 
