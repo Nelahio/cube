@@ -16,40 +16,21 @@ app.use(express.json());
 
 app.use("/api/recherche", produitRoutes);
 
-consumeEnchereCreated()
-  .then(() => console.log("Consommateur EnchereCreated démarré avec succès."))
-  .catch((error) =>
-    console.error(
-      "Erreur lors du démarrage du consommateur EnchereCreated :",
-      error
-    )
-  );
-
-consumeEnchereUpdated()
-  .then(() => console.log("Consommateur EnchereUpdated démarré avec succès."))
-  .catch((error) =>
-    console.error(
-      "Erreur lors du démarrage du consommateur EnchereUpdated :",
-      error
-    )
-  );
-
-consumeEnchereDeleted()
-  .then(() => console.log("Consommateur EnchereDeleted démarré avec succès."))
-  .catch((error) =>
-    console.error(
-      "Erreur lors du démarrage du consommateur EnchereDeleted :",
-      error
-    )
-  );
-
-consumeOffreCreated()
-  .then(() => console.log("Consommateur OffreCreated démarré avec succès."))
-  .catch((error) =>
-    console.error(
-      "Erreur lors du démarrage du consommateur OffreCreated :",
-      error
-    )
-  );
+Promise.all([
+  consumeEnchereCreated().then(() =>
+    console.log("Consommateur EnchereCreated démarré avec succès.")
+  ),
+  consumeEnchereUpdated().then(() =>
+    console.log("Consommateur EnchereUpdated démarré avec succès.")
+  ),
+  consumeEnchereDeleted().then(() =>
+    console.log("Consommateur EnchereDeleted démarré avec succès.")
+  ),
+  consumeOffreCreated().then(() =>
+    console.log("Consommateur OffreCreated démarré avec succès.")
+  ),
+]).catch((error) =>
+  console.error("Erreur lors du démarrage des consommateurs :", error)
+);
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
