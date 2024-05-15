@@ -22,6 +22,10 @@ const nextConfig = {
         hostname: "**.guerlain.com",
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "**",
+      },
     ],
   },
   output: "standalone",
