@@ -37,13 +37,16 @@ const consumeEnchereUpdated = async () => {
 
             await retry(
               async (bail, attempt) => {
+                console.log(
+                  `EnchereUpdatedConsumer : Tentative de mise à jour du produit : ${attempt}`
+                );
                 await Produit.findByIdAndUpdate(enchereUpdated.id, produitData);
                 console.log("Produit mis à jour");
               },
               {
                 retries: 5,
                 factor: 2,
-                minTimeout: 1000,
+                minTimeout: 10000,
               }
             );
 
@@ -57,7 +60,10 @@ const consumeEnchereUpdated = async () => {
       { noAck: false }
     );
   } catch (error) {
-    console.error("Erreur lors de la configuration du consumer : ", error);
+    console.error(
+      "EnchereUpdatedConsumer : Erreur lors de la configuration du consumer : ",
+      error
+    );
   }
 };
 

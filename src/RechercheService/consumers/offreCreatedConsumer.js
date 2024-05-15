@@ -44,13 +44,16 @@ const consumeOffreCreated = async () => {
                 offreCreated.amount > produit.currentHighBid
               ) {
                 produit.currentHighBid = offreCreated.amount;
+                console.log(
+                  `OffreCreatedConsumer : Tentative de création de l'offre : ${attempt}`
+                );
                 await produit.save();
               }
             },
             {
               retries: 5,
               factor: 2,
-              minTimeout: 1000,
+              minTimeout: 10000,
             }
           );
 
@@ -65,7 +68,10 @@ const consumeOffreCreated = async () => {
       { noAck: false }
     );
   } catch (error) {
-    console.error("Erreur lors de la configuration du consumer:", error);
+    console.error(
+      "OffreCreatedConsumer : Erreur lors de la configuration du consumer:",
+      error
+    );
   }
 };
 

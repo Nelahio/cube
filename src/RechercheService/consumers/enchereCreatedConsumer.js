@@ -42,13 +42,16 @@ const consumeEnchereCreated = async () => {
 
           await retry(
             async (bail, attempt) => {
+              console.log(
+                `EnchereCreatedConsumer : Tentative de création du produit : ${attempt}`
+              );
               await produit.save();
-              console.log("Produit enregistré");
+              console.log("Produit créé");
             },
             {
               retries: 5,
               factor: 2,
-              minTimeout: 1000,
+              minTimeout: 10000,
             }
           );
 
@@ -63,7 +66,10 @@ const consumeEnchereCreated = async () => {
       { noAck: false }
     );
   } catch (error) {
-    console.error("Erreur lors de la configuration du consumer:", error);
+    console.error(
+      "EnchereCreatedConsumer : Erreur lors de la configuration du consumer :",
+      error
+    );
   }
 };
 
