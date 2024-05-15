@@ -30,13 +30,16 @@ const consumeEnchereDeleted = async () => {
 
             await retry(
               async (bail, attempt) => {
+                console.log(
+                  `EnchereDeletedConsumer : Tentative de suppression du produit : ${attempt}`
+                );
                 await Produit.findByIdAndDelete(enchereDeleted.id);
                 console.log("Produit supprimé");
               },
               {
                 retries: 5,
                 factor: 2,
-                minTimeout: 1000,
+                minTimeout: 10000,
               }
             );
 
@@ -50,7 +53,10 @@ const consumeEnchereDeleted = async () => {
       { noAck: false }
     );
   } catch (error) {
-    console.error("Erreur lors de la configuration du consumer :", error);
+    console.error(
+      "EnchereDeletedConsumer : Erreur lors de la configuration du consumer :",
+      error
+    );
   }
 };
 

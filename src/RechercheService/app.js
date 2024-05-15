@@ -5,6 +5,7 @@ const consumeEnchereCreated = require("./consumers/enchereCreatedConsumer");
 const consumeEnchereUpdated = require("./consumers/enchereUpdatedConsumer");
 const consumeEnchereDeleted = require("./consumers/enchereDeletedConsumer");
 const consumeOffreCreated = require("./consumers/offreCreatedConsumer");
+const retry = require("async-retry");
 require("./services/requestHelpers/mappingProfiles");
 
 const app = express();
@@ -16,40 +17,24 @@ app.use(express.json());
 
 app.use("/api/recherche", produitRoutes);
 
-consumeEnchereCreated()
-  .then(() => console.log("Consommateur EnchereCreated démarré avec succès."))
-  .catch((error) =>
-    console.error(
-      "Erreur lors du démarrage du consommateur EnchereCreated :",
-      error
-    )
-  );
+const startConsumers = async () => {
+  await retry(consumeEnchereCreated, { retries: 3, factor: 2, delay: 5000 });
+  console.log("Consommateur EnchereCreated démarré avec succès.");
 
-consumeEnchereUpdated()
-  .then(() => console.log("Consommateur EnchereUpdated démarré avec succès."))
-  .catch((error) =>
-    console.error(
-      "Erreur lors du démarrage du consommateur EnchereUpdated :",
-      error
-    )
-  );
+  await retry(consumeEnchereUpdated, { retries: 3, factor: 2, delay: 5000 });
+  console.log("Consommateur EnchereUpdated démarré avec succès.");
 
-consumeEnchereDeleted()
-  .then(() => console.log("Consommateur EnchereDeleted démarré avec succès."))
-  .catch((error) =>
-    console.error(
-      "Erreur lors du démarrage du consommateur EnchereDeleted :",
-      error
-    )
-  );
+  await retry(consumeEnchereDeleted, { retries: 3, factor: 2, delay: 5000 });
+  console.log("Consommateur EnchereDeleted démarré avec succès.");
 
-consumeOffreCreated()
-  .then(() => console.log("Consommateur OffreCreated démarré avec succès."))
-  .catch((error) =>
-    console.error(
-      "Erreur lors du démarrage du consommateur OffreCreated :",
-      error
-    )
-  );
+  await retry(consumeOffreCreated, { retries: 3, factor: 2, delay: 5000 });
+  console.log("Consommateur OffreCreated démarré avec succès.");
+};
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
+
+try {
+  startConsumers();
+} catch (error) {
+  console.error("Erreur lors du démarrage des consumers", error);
+}
