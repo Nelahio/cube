@@ -36,12 +36,12 @@ const consumeEnchereFinished = async () => {
           );
 
           const produit = await Produit.findOne({
-            _id: enchereFinished.AuctionId,
+            _id: enchereFinished.auctionId,
           });
 
-          if (enchereFinished.ItemSold) {
-            produit.winner = enchereFinished.Winner;
-            produit.soldAmount = enchereFinished.Amount;
+          if (enchereFinished.itemSold) {
+            produit.winner = enchereFinished.winner;
+            produit.soldAmount = enchereFinished.amount;
           }
 
           produit.status = "Finished";
