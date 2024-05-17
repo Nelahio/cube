@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Drawing;
+using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Contracts;
 using EnchereService.Data;
@@ -91,11 +92,8 @@ public class EncheresController : ControllerBase
         enchere.Item.Description = updateEnchereDto.Description ?? enchere.Item.Description;
         enchere.Item.ImageUrl = updateEnchereDto.ImageUrl ?? enchere.Item.ImageUrl;
         enchere.Item.Category = updateEnchereDto.Category ?? enchere.Item.Category;
-        if (updateEnchereDto.State != null)
-        {
-            enchere.Item.State = (Etat)Enum.Parse(typeof(Etat), updateEnchereDto.State);
-        }
-
+        enchere.Item.State = updateEnchereDto.State != null ? (Etat)Enum.Parse(typeof(Etat), updateEnchereDto.State) : enchere.Item.State;
+        
         await _publishEndpoint.Publish<EnchereUpdated>(_mapper.Map<EnchereUpdated>(enchere));
 
         var result = await _context.SaveChangesAsync() > 0;
