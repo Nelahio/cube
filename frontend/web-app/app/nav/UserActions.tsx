@@ -42,9 +42,6 @@ export default function UserActions({ user }: Props) {
       <Dropdown.Item icon={AiFillDollarCircle}>
         <Link href={"/encheres/create"}>Vendre un produit</Link>
       </Dropdown.Item>
-      <Dropdown.Item icon={HiCog}>
-        <Link href={"/session"}>Session (dev only)</Link>
-      </Dropdown.Item>
       <Dropdown.Divider />
       <Dropdown.Item
         icon={AiOutlineLogout}
