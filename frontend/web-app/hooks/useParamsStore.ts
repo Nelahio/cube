@@ -11,6 +11,10 @@ type State = {
   filterBy: string;
   seller?: string;
   winner?: string;
+  category?: string | string[];
+  state?: string | string[];
+  make?: string | string[];
+  color?: string | string[];
 };
 
 type Actions = {
@@ -29,6 +33,10 @@ const initialState: State = {
   filterBy: "live",
   seller: undefined,
   winner: undefined,
+  category: undefined,
+  state: undefined,
+  make: undefined,
+  color: undefined,
 };
 
 export const useParamsStore = createWithEqualityFn<State & Actions>()(

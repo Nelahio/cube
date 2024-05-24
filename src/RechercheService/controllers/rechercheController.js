@@ -9,6 +9,8 @@ exports.rechercheProduits = async (req, res) => {
       searchTerm,
       category,
       state,
+      make,
+      color,
       pageNumber,
       pageSize,
       seller,
@@ -23,11 +25,43 @@ exports.rechercheProduits = async (req, res) => {
     }
 
     if (category) {
-      conditions.category = { $regex: new RegExp(category, "i") };
+      if (Array.isArray(category)) {
+        conditions.category = {
+          $in: category.map((c) => new RegExp("^" + c + "$", "i")),
+        };
+      } else {
+        conditions.category = { $regex: new RegExp("^" + category + "$", "i") };
+      }
     }
 
     if (state) {
-      conditions.state = { $regex: new RegExp(state, "i") };
+      if (Array.isArray(state)) {
+        conditions.state = {
+          $in: state.map((s) => new RegExp("^" + s + "$", "i")),
+        };
+      } else {
+        conditions.state = { $regex: new RegExp("^" + state + "$", "i") };
+      }
+    }
+
+    if (make) {
+      if (Array.isArray(make)) {
+        conditions.make = {
+          $in: make.map((m) => new RegExp("^" + m + "$", "i")),
+        };
+      } else {
+        conditions.make = { $regex: new RegExp("^" + make + "$", "i") };
+      }
+    }
+
+    if (color) {
+      if (Array.isArray(color)) {
+        conditions.color = {
+          $in: color.map((c) => new RegExp("^" + c + "$", "i")),
+        };
+      } else {
+        conditions.color = { $regex: new RegExp("^" + color + "$", "i") };
+      }
     }
 
     if (seller) {

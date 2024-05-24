@@ -36,25 +36,28 @@ const consumeEnchereFinished = async () => {
           );
 
           const produit = await Produit.findOne({
-            _id: enchereFinished.AuctionId,
+            _id: enchereFinished.auctionId,
           });
 
-          if (enchereFinished.ItemSold) {
-            produit.winner = enchereFinished.Winner;
-            produit.soldAmount = enchereFinished.Amount;
+          if (enchereFinished.itemSold) {
+            produit.winner = enchereFinished.winner;
+            produit.soldAmount = enchereFinished.amount;
           }
 
           produit.status = "Finished";
 
           await retry(
             async (bail, attempt) => {
+              console.log(
+                `EnchereFinishedConsumer : Tentative de mise à jour du produit : ${attempt}`
+              );
               await produit.save();
               console.log("Produit enregistré");
             },
             {
               retries: 5,
               factor: 2,
-              minTimeout: 1000,
+              minTimeout: 10000,
             }
           );
 
@@ -69,7 +72,10 @@ const consumeEnchereFinished = async () => {
       { noAck: false }
     );
   } catch (error) {
-    console.error("Erreur lors de la configuration du consumer:", error);
+    console.error(
+      "EnchereFinishedConsumer : Erreur lors de la configuration du consumer:",
+      error
+    );
   }
 };
 

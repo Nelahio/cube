@@ -91,6 +91,20 @@ export default function EnchereForm({ enchere }: Props) {
     { value: "GoodCondition", label: "Bon état" },
     { value: "Worn", label: "Usé" },
   ];
+  const colorOptions = [
+    { value: "", label: "Sélectionnez une couleur" },
+    { value: "Rouge", label: "Rouge" },
+    { value: "Orange", label: "Orange" },
+    { value: "Jaune", label: "Jaune" },
+    { value: "Vert", label: "Vert" },
+    { value: "Bleu", label: "Bleu" },
+    { value: "Violet", label: "Violet" },
+    { value: "Rose", label: "Rose" },
+    { value: "Marron", label: "Marron" },
+    { value: "Gris", label: "Gris" },
+    { value: "Noir", label: "Noir" },
+    { value: "Blanc", label: "Blanc" },
+  ];
   return (
     <form className="flex flex-col mt-3" onSubmit={handleSubmit(onSubmit)}>
       <Input
@@ -105,10 +119,11 @@ export default function EnchereForm({ enchere }: Props) {
         control={control}
         rules={{ required: "Le nom du produit est obligatoire" }}
       />
-      <Input
+      <SelectInput
         label="Couleur"
         name="color"
         control={control}
+        options={colorOptions}
         rules={{ required: "La couleur est obligatoire" }}
       />
 

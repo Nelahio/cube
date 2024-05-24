@@ -2,6 +2,7 @@
 
 import { Enchere } from "@/types";
 import { Table } from "flowbite-react";
+import { format } from "date-fns";
 
 type Props = {
   enchere: Enchere;
@@ -27,6 +28,14 @@ export default function DetailedSpecs({ enchere }: Props) {
             Vendeur
           </Table.Cell>
           <Table.Cell>{enchere.seller}</Table.Cell>
+        </Table.Row>
+        <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+          <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+            Ajoutée le
+          </Table.Cell>
+          <Table.Cell>
+            {format(new Date(enchere.createdAt), "dd/MM/yyyy")}
+          </Table.Cell>
         </Table.Row>
         <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
           <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
@@ -69,6 +78,14 @@ export default function DetailedSpecs({ enchere }: Props) {
             Possède un prix de réserve ?
           </Table.Cell>
           <Table.Cell>{enchere.reservePrice > 0 ? "Oui" : "Non"}</Table.Cell>
+        </Table.Row>
+        <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+          <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+            Se termine le
+          </Table.Cell>
+          <Table.Cell>
+            {format(new Date(enchere.auctionEnd), "dd/MM/yyyy")}
+          </Table.Cell>
         </Table.Row>
       </Table.Body>
     </Table>

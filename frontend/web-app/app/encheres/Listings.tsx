@@ -10,6 +10,7 @@ import { shallow } from "zustand/shallow";
 import qs from "query-string";
 import EmptyFilter from "../components/EmptyFilter";
 import { useEnchereStore } from "@/hooks/useEnchereStore";
+import FilterMenu from "../components/FilterMenu";
 
 export default function Listings() {
   const [loading, setLoading] = useState(true);
@@ -22,6 +23,10 @@ export default function Listings() {
       filterBy: state.filterBy,
       seller: state.seller,
       winner: state.winner,
+      category: state.category,
+      state: state.state,
+      make: state.make,
+      color: state.color,
     }),
     shallow
   );
@@ -52,25 +57,30 @@ export default function Listings() {
 
   return (
     <>
-      <Filters />
-      {data.totalCount === 0 ? (
-        <EmptyFilter showReset />
-      ) : (
-        <>
-          <div className="grid grid-cols-4 gap-6">
-            {data.encheres.map((enchere) => (
-              <EnchereCard enchere={enchere} key={enchere._id} />
-            ))}
-          </div>
-          <div className="flex justify-center mt-4">
-            <AppPagination
-              pageChanged={setPageNumber}
-              currentPage={params.pageNumber}
-              pageCount={data.pageCount}
-            />
-          </div>
-        </>
-      )}
+      <div className="flex gap-3">
+        <FilterMenu />
+        <div className="flex-1">
+          <Filters />
+          {data.totalCount === 0 ? (
+            <EmptyFilter showReset />
+          ) : (
+            <>
+              <div className="grid grid-cols-4 gap-6">
+                {data.encheres.map((enchere) => (
+                  <EnchereCard enchere={enchere} key={enchere._id} />
+                ))}
+              </div>
+              <div className="flex justify-center mt-4">
+                <AppPagination
+                  pageChanged={setPageNumber}
+                  currentPage={params.pageNumber}
+                  pageCount={data.pageCount}
+                />
+              </div>
+            </>
+          )}
+        </div>
+      </div>
     </>
   );
 }
