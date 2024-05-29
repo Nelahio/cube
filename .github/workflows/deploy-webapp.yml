@@ -1,11 +1,11 @@
-name: deploy-authentification
+name: deploy-webapp
 
 on:
   workflow_dispatch:
   push:
     branches: ["main"]
     paths:
-      - "src/AuthentificationService/**"
+      - "frontend/web-app/**"
 
 jobs:
   build:
@@ -27,6 +27,6 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: src/AuthentificationService/Dockerfile
+          file: frontend/web-app/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/authentification-service:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/web-app:latest

@@ -1,11 +1,11 @@
-name: deploy-authentification
+name: deploy-notification
 
 on:
   workflow_dispatch:
   push:
     branches: ["main"]
     paths:
-      - "src/AuthentificationService/**"
+      - "src/NotificationService/**"
 
 jobs:
   build:
@@ -27,6 +27,6 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: src/AuthentificationService/Dockerfile
+          file: src/NotificationService/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/authentification-service:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/notification-service:latest
