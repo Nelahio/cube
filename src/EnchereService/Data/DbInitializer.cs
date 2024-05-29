@@ -36,10 +36,10 @@ public class DbInitializer
                 {
                     Make = "Lolita Lempicka",
                     Name = "Sweet",
-                    Color = "Crystal Red",
+                    Color = "Rouge",
                     Year = 2020,
                     Description = "Eau de parfum 50ml",
-                    ImageUrl = "https://cdn.pixabay.com/photo/2017/03/14/11/36/perfume-2142792_1280.jpg",
+                    ImageUrl = "https://www.lolitalempicka.com/cdn/shop/products/eShopSWEETBOTTLE30ml_1500x.jpg",
                     Category = "Parfum",
                     State = Etat.New
                 }
@@ -52,15 +52,15 @@ public class DbInitializer
                 Status = Statut.Live,
                 ReservePrice = 500,
                 Seller = "alice",
-                AuctionEnd = DateTime.UtcNow.AddDays(60),
+                AuctionEnd = DateTime.UtcNow.AddHours(8),
                 Item = new Produit
                 {
                     Make = "Dior",
                     Name = "J'adore",
-                    Color = "Crystal Amber",
+                    Color = "Orange",
                     Year = 2020,
                     Description = "Eau de parfum 50ml",
-                    ImageUrl = "https://cdn.pixabay.com/photo/2017/03/14/11/36/perfume-2142792_1280.jpg",
+                    ImageUrl = "https://www.dior.com/dw/image/v2/BGXS_PRD/on/demandware.static/-/Sites-master_dior/default/dw87e94e42/Y0715201/Y0715201_F071524009_E01_ZHC.jpg",
                     Category = "Parfum",
                     State = Etat.GoodCondition
                 }
@@ -76,11 +76,11 @@ public class DbInitializer
                 Item = new Produit
                 {
                     Make = "Nina Ricci",
-                    Name = "Nina Rouge",
-                    Color = "Red",
+                    Name = "Nina Extra Rouge",
+                    Color = "Rouge",
                     Year = 2020,
-                    Description = "Eau de parfum 50ml",
-                    ImageUrl = "https://cdn.pixabay.com/photo/2017/03/14/11/36/perfume-2142792_1280.jpg",
+                    Description = "Eau de parfum 80ml",
+                    ImageUrl = "https://cdn.shopify.com/s/files/1/0604/7409/7823/products/SNR-8629-80ml.jpg",
                     Category = "Parfum",
                     State = Etat.GoodCondition
                 }
@@ -92,60 +92,60 @@ public class DbInitializer
                 Id = Guid.Parse("155225c1-4448-4066-9886-6786536e05ea"),
                 Status = Statut.ReserveNotMet,
                 ReservePrice = 200,
-                Seller = "bob",
+                Seller = "alice",
                 AuctionEnd = DateTime.UtcNow.AddDays(4),
                 Item = new Produit
                 {
                     Make = "Nina Ricci",
                     Name = "Illusion",
-                    Color = "Crystal Pink",
+                    Color = "Rose",
                     Year = 2020,
                     Description = "Eau de parfum 30ml",
-                    ImageUrl = "https://cdn.pixabay.com/photo/2017/03/14/11/36/perfume-2142792_1280.jpg",
+                    ImageUrl = "https://cdn.shopify.com/s/files/1/0604/7409/7823/files/76650f76-13f3-4316-b44f-d3adf5ef0b4e_Nina-Illusion-80ml-FACE.jpg",
                     Category = "Parfum",
                     State = Etat.GoodCondition
                 }
             },
 
-            // 5 Nina Ricci L'air du temps
+            // 5 Nina Ricci L'Air du Temps
             new Enchere
             {
                 Id = Guid.Parse("466e4744-4dc5-4987-aae0-b621acfc5e39"),
                 Status = Statut.Live,
                 ReservePrice = 200,
                 Seller = "alice",
-                AuctionEnd = DateTime.UtcNow.AddDays(30),
+                AuctionEnd = DateTime.UtcNow.AddDays(2),
                 Item = new Produit
                 {
                     Make = "Nina Ricci",
-                    Name = "L'air du temps",
-                    Color = "Crystal Yellow",
+                    Name = "L'Air du Temps X Anne Brun",
+                    Color = "Blanc",
                     Year = 2020,
                     Description = "Eau de parfum 100ml",
-                    ImageUrl = "https://cdn.pixabay.com/photo/2017/03/14/11/36/perfume-2142792_1280.jpg",
+                    ImageUrl = "https://cdn.shopify.com/s/files/1/0604/7409/7823/files/FLACON_ADT_5000x5000_6377f62a-2b9e-4783-8383-274d210cdee8.jpg",
                     Category = "Parfum",
-                    State = Etat.GoodCondition
+                    State = Etat.New
                 }
             },
 
-            // 6 Nina Ricci Nina Nature
+            // 6 Paco Rabanne Invictus
             new Enchere
             {
                 Id = Guid.Parse("dc1e4071-d19d-459b-b848-b5c3cd3d151f"),
                 Status = Statut.Live,
                 ReservePrice = 200,
                 Seller = "bob",
-                AuctionEnd = DateTime.UtcNow.AddDays(45),
+                AuctionEnd = DateTime.UtcNow.AddHours(2),
                 Item = new Produit
                 {
-                    Make = "Nina Ricci",
-                    Name = "Nina Nature",
-                    Color = "Matte Water Green",
-                    Year = 2020,
-                    Description = "Eau de parfum 50ml",
-                    ImageUrl = "https://cdn.pixabay.com/photo/2017/03/14/11/36/perfume-2142792_1280.jpg",
+                    Make = "Paco Rabanne",
+                    Name = "Invictus",
+                    Color = "Bleu",
+                    Year = 2016,
+                    Description = "Eau de parfum 100ml",
+                    ImageUrl = "https://medias.rabanne.com/medias/sys_master/images/h1d/h71/9905979457566/9905979392030/9905979392030.jpg",
                     Category = "Parfum",
-                    State = Etat.GoodCondition
+                    State = Etat.New
                 }
             },
 
@@ -156,15 +156,15 @@ public class DbInitializer
                 Status = Statut.Live,
                 ReservePrice = 200,
                 Seller = "bob",
-                AuctionEnd = DateTime.UtcNow.AddDays(45),
+                AuctionEnd = DateTime.UtcNow.AddDays(5),
                 Item = new Produit
                 {
-                    Make = "Nina Ricci",
-                    Name = "Nina Nature",
-                    Color = "Matte Water Green",
+                    Make = "Dior",
+                    Name = "Miss Dior",
+                    Color = "Rose",
                     Year = 2020,
                     Description = "Eau de parfum 50ml",
-                    ImageUrl = "https://cdn.pixabay.com/photo/2017/03/14/11/36/perfume-2142792_1280.jpg",
+                    ImageUrl = "https://www.dior.com/dw/image/v2/BGXS_PRD/on/demandware.static/-/Sites-master_dior/default/dwb75065e2/Y0997166/Y0997166_C099700897_E01_ZHC.jpg",
                     Category = "Parfum",
                     State = Etat.GoodCondition
                 }
@@ -176,17 +176,17 @@ public class DbInitializer
                 Id = Guid.Parse("6a5011a1-fe1f-47df-9a32-b5346b289391"),
                 Status = Statut.Live,
                 Seller = "bob",
-                AuctionEnd = DateTime.UtcNow.AddDays(19),
+                AuctionEnd = DateTime.UtcNow.AddDays(3),
                 Item = new Produit
                 {
                     Make = "Dior",
                     Name = "Sauvage",
-                    Color = "Crystal Blue",
+                    Color = "Bleu",
                     Year = 2020,
                     Description = "Eau de parfum 50ml",
-                    ImageUrl = "https://cdn.pixabay.com/photo/2017/03/14/11/36/perfume-2142792_1280.jpg",
+                    ImageUrl = "https://www.dior.com/dw/image/v2/BGXS_PRD/on/demandware.static/-/Sites-master_dior/default/dw29653516/Y0785220/Y0785220_F078524009_E01_ZHC.jpg",
                     Category = "Parfum",
-                    State = Etat.GoodCondition
+                    State = Etat.LikeNew
                 }
             },
 
@@ -196,18 +196,18 @@ public class DbInitializer
                 Id = Guid.Parse("40490065-dac7-46b6-acc4-df507e0d6570"),
                 Status = Statut.Live,
                 ReservePrice = 400,
-                Seller = "tom",
-                AuctionEnd = DateTime.UtcNow.AddDays(20),
+                Seller = "alice",
+                AuctionEnd = DateTime.UtcNow.AddHours(10),
                 Item = new Produit
                 {
                     Make = "Dior",
                     Name = "Hypnotic Poison",
-                    Color = "Crystal Red Purple",
+                    Color = "Rouge",
                     Year = 2020,
                     Description = "Eau de parfum 50ml",
-                    ImageUrl = "https://cdn.pixabay.com/photo/2017/03/14/11/36/perfume-2142792_1280.jpg",
+                    ImageUrl = "https://www.dior.com/dw/image/v2/BGXS_PRD/on/demandware.static/-/Sites-master_dior/default/dwb3c99548/Y0083424/Y0083424_F008342409_E01_ZHC.jpg",
                     Category = "Parfum",
-                    State = Etat.GoodCondition
+                    State = Etat.LikeNew
                 }
             },
 
@@ -218,17 +218,17 @@ public class DbInitializer
                 Status = Statut.Live,
                 ReservePrice = 100,
                 Seller = "bob",
-                AuctionEnd = DateTime.UtcNow.AddDays(48),
+                AuctionEnd = DateTime.UtcNow.AddHours(5),
                 Item = new Produit
                 {
                     Make = "Dolce & Gabbana",
-                    Name = "The One",
-                    Color = "Crystal Amber Yellow",
+                    Name = "The One for Men",
+                    Color = "Orange",
                     Year = 2020,
                     Description = "Eau de parfum 50ml",
-                    ImageUrl = "https://cdn.pixabay.com/photo/2017/03/14/11/36/perfume-2142792_1280.jpg",
+                    ImageUrl = "https://www.nocibe.fr/fstrz/r/s/www.nocibe.fr/medias/produits/205146/205146-dolce-gabbana-the-one-men-eau-de-parfum-vaporisateur-150-ml-1000x1000.jpg",
                     Category = "Parfum",
-                    State = Etat.GoodCondition
+                    State = Etat.Worn
                 }
             }
         };

@@ -42,3 +42,13 @@ export type EnchereFinished = {
   seller: string;
   amount?: number;
 };
+
+export type FilterOption = {
+  name: string;
+  count: number;
+};
+
+export type FilterCategory = {
+  name: string;
+  options: FilterOption[];
+};
