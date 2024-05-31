@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: offre-service
+spec:
+  selector:
+    matchLabels:
+      app: offre-service
+  template:
+    metadata:
+      labels:
+        app: offre-service
+    spec:
+      containers:
+        - name: offre-service
+          image: nelahio/offre-service:latest
+          env:
+            - name: RabbitMq__Host
+              value: rabbitmq-clusterip
+            - name: RabbitMq__Username
+              value: rabbit
+            - name: RabbitMq__Password
+              value: rabbit
+            - name: ConnectionStrings__OffreDbConnection
+              value: mongodb://root:mongopw@mongodb-clusterip
+            - name: AuthentificationServiceUrl
+              value: https://auth.cube.com
+            - name: GrpcEnchere
+              value: http://enchere-clusterip:7777
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: offre-clusterip
+spec:
+  type: ClusterIP
+  selector:
+    app: offre-service
+  ports:
+    - port: 80
+      targetPort: 80

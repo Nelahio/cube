@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recherche-service
+spec:
+  selector:
+    matchLabels:
+      app: recherche-service
+  template:
+    metadata:
+      labels:
+        app: recherche-service
+    spec:
+      containers:
+        - name: recherche-service
+          image: nelahio/recherche-service:latest
+          env:
+            - name: RABBITMQ_HOST
+              value: rabbitmq-clusterip
+            - name: RABBITMQ_USERNAME
+              value: rabbit
+            - name: RABBITMQ_PASSWORD
+              value: rabbit
+            - name: DB_URI
+              value: mongodb://root:mongopw@mongodb-clusterip:27017/recherche?authSource=admin
+            - name: ENCHERE_SERVICE_URL
+              value: http://enchere-clusterip
+            - name: PORT
+              value: "80"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: recherche-clusterip
+spec:
+  type: ClusterIP
+  selector:
+    app: recherche-service
+  ports:
+    - port: 80
+      targetPort: 80
