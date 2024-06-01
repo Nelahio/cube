@@ -22,7 +22,7 @@ spec:
             - name: API_URL
               value: http://gateway-clusterip/
             - name: AUTH_URL
-              value: https://auth.cube.com
+              value: https://authentification-clusterip/
           ports:
             - containerPort: 3000
 ---

@@ -4,6 +4,10 @@ metadata:
   name: ingress-service
   labels:
     name: ingress-service
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 spec:
   ingressClassName: nginx
   tls:
@@ -29,7 +33,7 @@ spec:
       http:
         paths:
           - pathType: Prefix
-            path: "/api"
+            path: "/"
             backend:
               service:
                 name: gateway-clusterip
