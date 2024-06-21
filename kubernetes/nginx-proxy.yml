@@ -20,18 +20,18 @@ spec:
             - name: https
               containerPort: 443
           volumeMounts:
-            - name: docker-sock
-              mountPath: /tmp/docker.sock
+            - mountPath: /tmp/docker.sock
+              name: docker-sock
               readOnly: true
-            - name: certs
-              mountPath: /etc/nginx/certs
+            - mountPath: /etc/nginx/certs
+              name: nginx-certs
       volumes:
         - name: docker-sock
           hostPath:
             path: /var/run/docker.sock
-        - name: certs
+        - name: nginx-certs
           hostPath:
-            path: /etc/nginx/certs:ro
+            path: ./devcerts
 ---
 apiVersion: v1
 kind: Service
