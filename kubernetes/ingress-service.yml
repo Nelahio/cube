@@ -14,10 +14,8 @@ spec:
     - hosts:
         - app.cube.com
         - api.cube.com
-      secretName: cube-app-tls
-    - hosts:
         - auth.cube.com
-      secretName: cube-com-tls
+      secretName: cube-app-tls
   rules:
     - host: app.cube.com
       http:
