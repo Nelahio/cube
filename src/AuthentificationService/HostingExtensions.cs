@@ -4,6 +4,7 @@ using AuthentificationService.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using Duende.IdentityServer.Services;
 using AuthentificationService.Services;
 
 namespace AuthentificationService;
