@@ -24,7 +24,7 @@ spec:
             - name: ConnectionStrings__OffreDbConnection
               value: mongodb://root:mongopw@mongodb-clusterip
             - name: AuthentificationServiceUrl
-              value: https://auth.cube.com
+              value: https://auth.auth-cube.com
             - name: GrpcEnchere
               value: http://enchere-clusterip:7777
 ---

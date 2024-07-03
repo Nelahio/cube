@@ -17,6 +17,9 @@ spec:
           env:
             - name: ClientApp
               value: https://app.cube.com
+            - name: AuthentificationServiceUrl
+              value: https://auth.auth-cube.com
+
 ---
 apiVersion: v1
 kind: Service
