@@ -37,13 +37,3 @@ spec:
                 name: gateway-clusterip
                 port:
                   number: 80
-    - host: auth.cube.com
-      http:
-        paths:
-          - pathType: Prefix
-            path: "/"
-            backend:
-              service:
-                name: authentification-clusterip
-                port:
-                  number: 80

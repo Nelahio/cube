@@ -64,6 +64,17 @@ internal static class HostingExtensions
 
         app.UseStaticFiles();
         app.UseRouting();
+
+        if (app.Environment.IsProduction())
+        {
+            app.Use(async (context, next) =>
+        {
+            var serverUrls = context.RequestServices.GetRequiredService<IServerUrls>();
+            serverUrls.Origin = serverUrls.Origin = "https://auth.auth-cube.com";
+            await next();
+        });
+        }
+
         app.UseIdentityServer();
         app.UseAuthorization();
 
