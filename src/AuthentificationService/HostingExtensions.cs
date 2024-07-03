@@ -4,7 +4,7 @@ using AuthentificationService.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
-using AuthentificationService.Services;
+using Duende.IdentityServer.Services;
 
 namespace AuthentificationService;
 
@@ -68,11 +68,11 @@ internal static class HostingExtensions
         if (app.Environment.IsProduction())
         {
             app.Use(async (context, next) =>
-        {
-            var serverUrls = context.RequestServices.GetRequiredService<IServerUrls>();
-            serverUrls.Origin = serverUrls.Origin = "https://auth.auth-cube.com";
-            await next();
-        });
+            {
+                var serverUrls = context.RequestServices.GetRequiredService<IServerUrls>();
+                serverUrls.Origin = serverUrls.Origin = "https://auth.auth-cube.com";
+                await next();
+            });
         }
 
         app.UseIdentityServer();
