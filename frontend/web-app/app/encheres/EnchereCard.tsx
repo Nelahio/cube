@@ -16,7 +16,11 @@ export default function EnchereCard({ enchere }: Props) {
         <div>
           <EnchereImage imageUrl={enchere.imageUrl} />
           <div className="absolute bottom-2 left-2">
-            <CountdownTimer auctionEnd={enchere.auctionEnd} />
+            <CountdownTimer
+              auctionEnd={enchere.auctionEnd}
+              auctionStart={enchere.auctionStart}
+              updatedAt={enchere.updatedAt}
+            />
           </div>
           <div className="absolute top-2 right-2">
             <CurrentOffre

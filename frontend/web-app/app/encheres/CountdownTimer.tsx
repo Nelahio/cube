@@ -3,10 +3,12 @@
 import { useOffreStore } from "@/hooks/useOffreStore";
 import { usePathname } from "next/navigation";
 import React from "react";
-import Countdown, { zeroPad } from "react-countdown";
+import Countdown, { zeroPad, CountdownRenderProps } from "react-countdown";
 
 type Props = {
   auctionEnd: string;
+  auctionStart: string;
+  updatedAt: string;
 };
 
 const renderer = ({
@@ -15,13 +17,18 @@ const renderer = ({
   minutes,
   seconds,
   completed,
-}: {
-  days: number;
-  hours: number;
-  minutes: number;
-  seconds: number;
-  completed: boolean;
+  auctionStart,
+  updatedAt,
+  auctionEnd,
+}: CountdownRenderProps & {
+  auctionStart: string;
+  updatedAt: string;
+  auctionEnd: string;
 }) => {
+  const isAuctionScheduled =
+    new Date(auctionStart) > new Date(updatedAt) &&
+    new Date(auctionStart) < new Date(auctionEnd);
+
   return (
     <div
       className={`
@@ -29,14 +36,17 @@ const renderer = ({
             ${
               completed
                 ? "bg-red-600"
+                : isAuctionScheduled
+                ? "bg-blue-600"
                 : days === 0 && hours < 10
                 ? "bg-amber-600"
                 : "bg-green-600"
-            }
-        `}
+            }`}
     >
       {completed ? (
         <span>Enchère terminée</span>
+      ) : isAuctionScheduled ? (
+        <span>Enchère planifiée</span>
       ) : (
         <span suppressHydrationWarning={true}>
           {zeroPad(days)}:{zeroPad(hours)}:{zeroPad(minutes)}:{zeroPad(seconds)}
@@ -46,7 +56,11 @@ const renderer = ({
   );
 };
 
-export default function CountdownTimer({ auctionEnd }: Props) {
+export default function CountdownTimer({
+  auctionEnd,
+  auctionStart,
+  updatedAt,
+}: Props) {
   const setOpen = useOffreStore((state) => state.setOpen);
   const pathname = usePathname();
 
@@ -60,7 +74,9 @@ export default function CountdownTimer({ auctionEnd }: Props) {
     <div>
       <Countdown
         date={auctionEnd}
-        renderer={renderer}
+        renderer={(props) =>
+          renderer({ ...props, auctionStart, updatedAt, auctionEnd })
+        }
         onComplete={enchereFinished}
       />
     </div>

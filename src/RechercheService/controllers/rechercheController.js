@@ -74,6 +74,9 @@ exports.rechercheProduits = async (req, res) => {
     const now = new Date();
     if (filterBy) {
       switch (filterBy) {
+        case "scheduled":
+          conditions.auctionStart = { $gt: now };
+          break;
         case "finished":
           conditions.auctionEnd = { $lt: now };
           break;

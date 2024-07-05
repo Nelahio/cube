@@ -23,5 +23,7 @@ public class CreateEnchereDto
     [Required]
     public string State { get; set; }
     [Required]
+    public DateTime AuctionStart { get; set; }
+    [Required]
     public DateTime AuctionEnd { get; set; }
 }

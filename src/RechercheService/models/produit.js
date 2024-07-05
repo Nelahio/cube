@@ -10,6 +10,7 @@ const produitSchema = new Schema({
   currentHighBid: Number,
   createdAt: Date,
   updatedAt: Date,
+  auctionStart: Date,
   auctionEnd: Date,
   status: String,
   make: String,

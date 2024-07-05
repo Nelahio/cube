@@ -33,6 +33,7 @@ getProduitsForSearchDb = async () => {
           currentHighBid: data.currentHighBid,
           createdAt: data.createdAt,
           updatedAt: data.updatedAt,
+          auctionStart: data.auctionStart,
           auctionEnd: data.auctionEnd,
           status: data.status,
           make: data.make,

@@ -17,6 +17,6 @@ public class EnchereCreatedConsumer : IConsumer<EnchereCreated>
     {
         Console.WriteLine("--> auction created message received");
 
-        await _hubContext.Clients.All.SendAsync("EnchereCreated", context.Message);
+        await _hubContext.Clients.User(context.Message.Seller).SendAsync("EnchereCreated", context.Message);
     }
 }

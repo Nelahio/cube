@@ -83,6 +83,11 @@ export default function OffreList({ user, enchere }: Props) {
           <div className="flex items-center justify-center p-2 text-lg font-semibold">
             Cette enchère est terminée
           </div>
+        ) : enchere.auctionStart &&
+          new Date(enchere.auctionStart) > new Date() ? (
+          <div className="flex items-center justify-center p-2 text-lg font-semibold">
+            Cette enchère n'est pas commencée
+          </div>
         ) : !user ? (
           <div className="flex items-center justify-center p-2 text-lg font-semibold">
             Connectez-vous pour faire une offre

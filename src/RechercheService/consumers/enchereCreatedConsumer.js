@@ -40,6 +40,10 @@ const consumeEnchereCreated = async () => {
           );
           const produit = new Produit(produitData);
 
+          if (enchereCreated.auctionStart > enchereCreated.updatedAt) {
+            produit.status = "Scheduled";
+          }
+
           await retry(
             async (bail, attempt) => {
               console.log(

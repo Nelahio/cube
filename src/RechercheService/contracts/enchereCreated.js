@@ -10,6 +10,7 @@ const enchereCreatedSchema = new mongoose.Schema({
   createdAt: Date,
   updatedAt: Date,
   auctionEnd: Date,
+  auctionStart: Date,
   status: String,
   make: String,
   name: String,

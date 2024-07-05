@@ -10,6 +10,7 @@ public class Enchere
     public int? CurrentHighBid { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime AuctionStart { get; set; }
     public DateTime AuctionEnd { get; set; }
     public Statut Status { get; set; }
     public Produit Item { get; set; }
