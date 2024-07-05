@@ -22,7 +22,10 @@ spec:
             - name: RabbitMq__Password
               value: rabbit
             - name: ConnectionStrings__DefaultConnection
-              value: Server=postgres-clusterip:5432;User Id=postgres;Password=postgrespw;Database=encheres
+              valueFrom:
+                secretKeyRef:
+                  name: enchere-secret
+                  key: enchere-connectionstring
             - name: AuthentificationServiceUrl
               value: https://auth.auth-cube.com
             - name: Kestrel__Endpoints__Grpc__Protocols
@@ -49,3 +52,11 @@ spec:
     - port: 7777
       targetPort: 7777
       name: grpc
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: enchere-secret
+type: Opaque
+data:
+  enchere-connectionstring: U2VydmVyPXBvc3RncmVzLWNsdXN0ZXJpcDo1NDMyO1VzZXIgSWQ9cG9zdGdyZXM7UGFzc3dvcmQ9cG9zdGdyZXNwdztEYXRhYmFzZT1lbmNoZXJlcw==

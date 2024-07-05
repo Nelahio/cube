@@ -16,7 +16,10 @@ spec:
           image: nelahio/web-app:latest
           env:
             - name: NEXTAUTH_SECRET
-              value: something
+              valueFrom:
+                secretKeyRef:
+                  name: webapp-secret
+                  key: webpp-nextauth
             - name: NEXTAUTH_URL
               value: https://app.cube.com
             - name: API_URL
@@ -49,3 +52,11 @@ spec:
   ports:
     - port: 3000
       targetPort: 3000
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: webapp-secret
+type: Opaque
+data:
+  webpp-nextauth: bmV4dEF1dGhAMjAyNA==
