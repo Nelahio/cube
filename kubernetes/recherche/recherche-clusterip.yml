@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: recherche-clusterip
+spec:
+  type: ClusterIP
+  selector:
+    app: recherche-service
+  ports:
+    - port: 80
+      targetPort: 80

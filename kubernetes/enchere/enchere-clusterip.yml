@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: enchere-clusterip
+spec:
+  type: ClusterIP
+  selector:
+    app: enchere-service
+  ports:
+    - port: 80
+      targetPort: 80
+      name: web
+    - port: 7777
+      targetPort: 7777
+      name: grpc

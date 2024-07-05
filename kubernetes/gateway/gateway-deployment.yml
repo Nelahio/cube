@@ -19,16 +19,3 @@ spec:
               value: https://app.cube.com
             - name: AuthentificationServiceUrl
               value: https://auth.auth-cube.com
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: gateway-clusterip
-spec:
-  type: ClusterIP
-  selector:
-    app: gateway-service
-  ports:
-    - port: 80
-      targetPort: 80

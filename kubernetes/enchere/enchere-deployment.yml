@@ -36,27 +36,3 @@ spec:
               value: Http1
             - name: Kestrel__Endpoints__WebApi__Url
               value: http://+:80
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: enchere-clusterip
-spec:
-  type: ClusterIP
-  selector:
-    app: enchere-service
-  ports:
-    - port: 80
-      targetPort: 80
-      name: web
-    - port: 7777
-      targetPort: 7777
-      name: grpc
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: enchere-secret
-type: Opaque
-data:
-  enchere-connectionstring: U2VydmVyPXBvc3RncmVzLWNsdXN0ZXJpcDo1NDMyO1VzZXIgSWQ9cG9zdGdyZXM7UGFzc3dvcmQ9cG9zdGdyZXNwdztEYXRhYmFzZT1lbmNoZXJlcw==
