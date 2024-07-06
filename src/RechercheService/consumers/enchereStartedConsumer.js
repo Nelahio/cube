@@ -36,11 +36,11 @@ const consumeEnchereStarted = async (message) => {
             _id: enchereStarted.auctionId,
           });
 
-          if (enchereStarted.auctionStart <= enchereStarted.updatedAt) {
+          if (produit.auctionStart <= produit.updatedAt) {
             produit.status = "Live";
           }
-
-          produit.auctionStart = enchereStarted.auctionStart;
+          console.log(produit, "produit");
+          console.log(enchereStarted, "enchereStarted");
 
           await retry(
             async (bail, attempt) => {

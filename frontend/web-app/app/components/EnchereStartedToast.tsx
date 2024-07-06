@@ -7,7 +7,7 @@ type Props = {
   enchere: Enchere;
 };
 
-export default function EnchereFinishedToast({ enchere }: Props) {
+export default function EnchereStartedToast({ enchere }: Props) {
   return (
     <Link
       href={`/encheres/details/${enchere.id}`}

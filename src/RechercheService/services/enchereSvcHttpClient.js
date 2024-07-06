@@ -60,6 +60,7 @@ getProduitsForSearchDb = async () => {
               description: data.description,
               imageUrl: data.imageUrl,
               state: data.state,
+              status: data.status,
               updatedAt: data.updatedAt,
             },
             { new: true }

@@ -30,7 +30,8 @@ public class GrpcEnchereClient
                 ID = reply.Enchere.Id,
                 AuctionEnd = DateTime.Parse(reply.Enchere.AuctionEnd),
                 Seller = reply.Enchere.Seller,
-                ReservePrice = reply.Enchere.ReservePrice
+                ReservePrice = reply.Enchere.ReservePrice,
+                AuctionStart = DateTime.Parse(reply.Enchere.AuctionStart)
             };
 
             return enchere;
