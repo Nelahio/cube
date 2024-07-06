@@ -13,5 +13,7 @@ public class Enchere
     public DateTime AuctionEnd { get; set; }
     public Statut Status { get; set; }
     public Produit Item { get; set; }
+
+    public bool HasReservePrice() => ReservePrice > 0;
 }
 
