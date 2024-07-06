@@ -66,10 +66,7 @@ export default function OffreList({ user, enchere }: Props) {
 
       <div className="overflow-auto h-[400px] flex flex-col-reverse px-2">
         {offres.length === 0 ? (
-          <EmptyFilter
-            title="Aucune offre pour cette enchère"
-            subtitle="N'hésitez pas à faire une offre"
-          />
+          <EmptyFilter title="Aucune offre pour cette enchère" />
         ) : (
           <>
             {offres.map((offre) => (

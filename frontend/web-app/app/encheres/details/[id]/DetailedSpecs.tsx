@@ -34,7 +34,7 @@ export default function DetailedSpecs({ enchere }: Props) {
             Ajoutée le
           </Table.Cell>
           <Table.Cell>
-            {format(new Date(enchere.createdAt), "dd/MM/yyyy")}
+            {format(new Date(enchere.createdAt), "dd/MM/yyyy HH:mm")}
           </Table.Cell>
         </Table.Row>
         <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
@@ -81,10 +81,18 @@ export default function DetailedSpecs({ enchere }: Props) {
         </Table.Row>
         <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
           <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+            Commence le
+          </Table.Cell>
+          <Table.Cell>
+            {format(new Date(enchere.auctionStart), "dd/MM/yyyy HH:mm")}
+          </Table.Cell>
+        </Table.Row>
+        <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+          <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
             Se termine le
           </Table.Cell>
           <Table.Cell>
-            {format(new Date(enchere.auctionEnd), "dd/MM/yyyy")}
+            {format(new Date(enchere.auctionEnd), "dd/MM/yyyy HH:mm")}
           </Table.Cell>
         </Table.Row>
       </Table.Body>
