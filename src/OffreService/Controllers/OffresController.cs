@@ -54,6 +54,10 @@ public class OffresController : ControllerBase
         {
             offre.BidStatus = OffreStatut.Finished;
         }
+        if(enchere.AuctionStart > DateTime.UtcNow)
+        {
+            offre.BidStatus = OffreStatut.Scheduled;
+        }
         else
         {
             var meilleureOffre = await DB.Find<Offre>()

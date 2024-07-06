@@ -2,6 +2,7 @@ import { useParamsStore } from "@/hooks/useParamsStore";
 import { Button, ButtonGroup } from "flowbite-react";
 import React from "react";
 import { AiOutlineClockCircle, AiOutlineSortAscending } from "react-icons/ai";
+import { BiCalendar } from "react-icons/bi";
 import { BsFillStopCircleFill, BsStopwatchFill } from "react-icons/bs";
 import { GiFinishLine, GiFlame } from "react-icons/gi";
 
@@ -33,6 +34,11 @@ const filterButtons = [
     label: "Fin < 6 heures",
     icon: GiFinishLine,
     value: "endingSoon",
+  },
+  {
+    label: "Planifiées",
+    icon: BiCalendar,
+    value: "scheduled",
   },
   {
     label: "Terminées",

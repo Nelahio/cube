@@ -28,9 +28,10 @@ public class DbInitializer
             new Enchere
             {
                 Id = Guid.Parse("afbee524-5972-4075-8800-7d1f9d7b0a0c"),
-                Status = Statut.Live,
+                Status = Statut.Scheduled,
                 ReservePrice = 300,
                 Seller = "bob",
+                AuctionStart = DateTime.UtcNow.AddDays(2),
                 AuctionEnd = DateTime.UtcNow.AddDays(10),
                 Item = new Produit
                 {
@@ -52,6 +53,7 @@ public class DbInitializer
                 Status = Statut.Live,
                 ReservePrice = 500,
                 Seller = "alice",
+                AuctionStart = DateTime.UtcNow,
                 AuctionEnd = DateTime.UtcNow.AddHours(8),
                 Item = new Produit
                 {
@@ -70,9 +72,10 @@ public class DbInitializer
             new Enchere
             {
                 Id = Guid.Parse("bbab4d5a-8565-48b1-9450-5ac2a5c4a654"),
-                Status = Statut.Live,
+                Status = Statut.Scheduled,
                 Seller = "bob",
-                AuctionEnd = DateTime.UtcNow.AddDays(4),
+                AuctionStart = DateTime.UtcNow.AddDays(2),
+                AuctionEnd = DateTime.UtcNow.AddDays(6),
                 Item = new Produit
                 {
                     Make = "Nina Ricci",
@@ -93,6 +96,7 @@ public class DbInitializer
                 Status = Statut.ReserveNotMet,
                 ReservePrice = 200,
                 Seller = "alice",
+                AuctionStart = DateTime.UtcNow,
                 AuctionEnd = DateTime.UtcNow.AddDays(4),
                 Item = new Produit
                 {
@@ -114,6 +118,7 @@ public class DbInitializer
                 Status = Statut.Live,
                 ReservePrice = 200,
                 Seller = "alice",
+                AuctionStart = DateTime.UtcNow,
                 AuctionEnd = DateTime.UtcNow.AddDays(2),
                 Item = new Produit
                 {
@@ -135,6 +140,7 @@ public class DbInitializer
                 Status = Statut.Live,
                 ReservePrice = 200,
                 Seller = "bob",
+                AuctionStart = DateTime.UtcNow,
                 AuctionEnd = DateTime.UtcNow.AddHours(2),
                 Item = new Produit
                 {
@@ -153,9 +159,10 @@ public class DbInitializer
             new Enchere
             {
                 Id = Guid.Parse("47111973-d176-4feb-848d-0ea22641c31a"),
-                Status = Statut.Live,
+                Status = Statut.Scheduled,
                 ReservePrice = 200,
                 Seller = "bob",
+                AuctionStart = DateTime.UtcNow.AddDays(2),
                 AuctionEnd = DateTime.UtcNow.AddDays(5),
                 Item = new Produit
                 {
@@ -174,8 +181,9 @@ public class DbInitializer
             new Enchere
             {
                 Id = Guid.Parse("6a5011a1-fe1f-47df-9a32-b5346b289391"),
-                Status = Statut.Live,
+                Status = Statut.Scheduled,
                 Seller = "bob",
+                AuctionStart = DateTime.UtcNow.AddDays(2),
                 AuctionEnd = DateTime.UtcNow.AddDays(3),
                 Item = new Produit
                 {
@@ -197,6 +205,7 @@ public class DbInitializer
                 Status = Statut.Live,
                 ReservePrice = 400,
                 Seller = "alice",
+                AuctionStart = DateTime.UtcNow,
                 AuctionEnd = DateTime.UtcNow.AddHours(10),
                 Item = new Produit
                 {
@@ -218,6 +227,7 @@ public class DbInitializer
                 Status = Statut.Live,
                 ReservePrice = 100,
                 Seller = "bob",
+                AuctionStart = DateTime.UtcNow,
                 AuctionEnd = DateTime.UtcNow.AddHours(5),
                 Item = new Produit
                 {

@@ -9,6 +9,7 @@ exports.rechercheProduits = async (req, res) => {
       searchTerm,
       category,
       state,
+      status,
       make,
       color,
       pageNumber,
@@ -37,10 +38,39 @@ exports.rechercheProduits = async (req, res) => {
     if (state) {
       if (Array.isArray(state)) {
         conditions.state = {
-          $in: state.map((s) => new RegExp("^" + s + "$", "i")),
+          $in: state.map((s) => {
+            switch (s) {
+              case "neuf":
+                return "New";
+              case "comme neuf":
+                return "LikeNew";
+              case "bon état":
+                return "GoodCondition";
+              case "usé":
+                return "Worn";
+              default:
+                return s;
+            }
+          }),
         };
       } else {
-        conditions.state = { $regex: new RegExp("^" + state + "$", "i") };
+        switch (state) {
+          case "neuf":
+            conditions.state = "New";
+            break;
+          case "comme neuf":
+            conditions.state = "LikeNew";
+            break;
+          case "bon état":
+            conditions.state = "GoodCondition";
+            break;
+          case "usé":
+            conditions.state = "Worn";
+            break;
+          default:
+            conditions.state = state;
+            break;
+        }
       }
     }
 
@@ -74,6 +104,9 @@ exports.rechercheProduits = async (req, res) => {
     const now = new Date();
     if (filterBy) {
       switch (filterBy) {
+        case "scheduled":
+          conditions.auctionStart = { $gt: now };
+          break;
         case "finished":
           conditions.auctionEnd = { $lt: now };
           break;
@@ -85,6 +118,7 @@ exports.rechercheProduits = async (req, res) => {
           break;
         default:
           conditions.auctionEnd = { $gt: now };
+          conditions.auctionStart = { $lt: now };
           break;
       }
     }
