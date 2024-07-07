@@ -10,13 +10,8 @@ metadata:
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 spec:
   ingressClassName: nginx
-  tls:
-    - hosts:
-        - app.cube.com
-        - api.cube.com
-      secretName: cube-app-tls
   rules:
-    - host: app.cube.com
+    - host: app.cubenchere.xyz
       http:
         paths:
           - pathType: Prefix
@@ -26,7 +21,7 @@ spec:
                 name: webapp-clusterip
                 port:
                   number: 3000
-    - host: api.cube.com
+    - host: api.cubenchere.xyz
       http:
         paths:
           - pathType: Prefix
