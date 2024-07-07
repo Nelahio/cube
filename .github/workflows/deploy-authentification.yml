@@ -30,7 +30,7 @@ jobs:
       - name: Build and push the Docker image
         uses: docker/build-push-action@v3
         with:
-          context: .
+          context: "{{defaultContext}}"
           file: ${{ env.DOCKERFILE_PATH }}
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DOCKERHUB_IMAGE_NAME }}:latest
