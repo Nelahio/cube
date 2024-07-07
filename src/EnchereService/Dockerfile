@@ -15,6 +15,7 @@ RUN dotnet restore cube.sln
 
 COPY src/EnchereService src/EnchereService
 COPY src/Contracts src/Contracts
+COPY tests/EnchereService.UnitTests tests/EnchereService.UnitTests
 WORKDIR /app/src/EnchereService
 RUN dotnet publish -c Release -o /app/src/out
 
