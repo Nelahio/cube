@@ -36,9 +36,11 @@ const consumeEnchereStarted = async (message) => {
             _id: enchereStarted.auctionId,
           });
 
-          if (produit.auctionStart <= produit.updatedAt) {
+          const now = new Date();
+          if (produit.auctionStart <= now && produit.auctionEnd >= now) {
             produit.status = "Live";
           }
+
           console.log(produit, "produit");
           console.log(enchereStarted, "enchereStarted");
 
