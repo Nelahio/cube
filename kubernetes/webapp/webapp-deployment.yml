@@ -20,12 +20,17 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: webapp-secret
-                  key: webpp-nextauth
+                  key: webapp-nextauth
             - name: NEXTAUTH_URL
-              value: https://app.cube.com
+              value: https://app.cubenchere.xyz
             - name: API_URL
               value: http://gateway-clusterip/
             - name: AUTH_URL
               value: https://auth.auth-cube.com
+            - name: CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: webapp-secret
+                  key: webapp-clientsecret
           ports:
             - containerPort: 3000

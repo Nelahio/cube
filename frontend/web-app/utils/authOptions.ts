@@ -9,7 +9,7 @@ export const authOptions: NextAuthOptions = {
     DuendeIdentityServer6({
       id: "id-server",
       clientId: "nextApp",
-      clientSecret: "secret",
+      clientSecret: process.env.CLIENT_SECRET!,
       issuer: process.env.AUTH_URL,
       authorization: { params: { scope: "openid profile cubeApp" } },
       idToken: true,
