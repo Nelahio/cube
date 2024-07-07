@@ -7,6 +7,12 @@ on:
     paths:
       - "src/GatewayService/**"
 
+env:
+  DOCKERHUB_IMAGE_NAME: gateway-service
+  DOCKERFILE_PATH: src/GatewayService/Dockerfile
+  DEPLOYMENT_NAME: gateway-service
+  DEPLOYMENT_FOLDER: gateway
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -27,6 +33,19 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: src/GatewayService/Dockerfile
+          file: ${{ env.DOCKERFILE_PATH }}
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/gateway-service:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DOCKERHUB_IMAGE_NAME }}:latest
+
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Save DigitalOcean kubeconfig
+        run: doctl kubernetes cluster kubeconfig save cube
+
+      - name: Apply or restart Kubernetes configuration
+        run: |
+          kubectl apply -f kubernetes/${{ env.DEPLOYMENT_FOLDER }}
+          kubectl rollout restart deployment ${{ env.DEPLOYMENT_NAME }}

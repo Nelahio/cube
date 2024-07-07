@@ -7,6 +7,10 @@ on:
     paths:
       - "src/AuthentificationService/**"
 
+env:
+  DOCKERHUB_IMAGE_NAME: authentification-service
+  DOCKERFILE_PATH: src/AuthentificationService/Dockerfile
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -27,6 +31,6 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: src/AuthentificationService/Dockerfile
+          file: ${{ env.DOCKERFILE_PATH }}
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/authentification-service:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DOCKERHUB_IMAGE_NAME }}:latest

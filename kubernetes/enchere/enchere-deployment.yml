@@ -14,6 +14,7 @@ spec:
       containers:
         - name: enchere-service
           image: nelahio/enchere-service:latest
+          imagePullPolicy: Always
           env:
             - name: RabbitMq__Host
               value: rabbitmq-clusterip

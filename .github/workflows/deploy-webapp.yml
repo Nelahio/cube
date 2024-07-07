@@ -7,6 +7,12 @@ on:
     paths:
       - "frontend/web-app/**"
 
+env:
+  DOCKERHUB_IMAGE_NAME: web-app
+  DOCKERFILE_PATH: frontend/web-app/Dockerfile
+  DEPLOYMENT_NAME: webapp
+  DEPLOYMENT_FOLDER: webapp
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -27,6 +33,19 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: frontend/web-app/Dockerfile
+          file: ${{ env.DOCKERFILE_PATH }}
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/web-app:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DOCKERHUB_IMAGE_NAME }}:latest
+
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Save DigitalOcean kubeconfig
+        run: doctl kubernetes cluster kubeconfig save cube
+
+      - name: Apply or restart Kubernetes configuration
+        run: |
+          kubectl apply -f kubernetes/${{ env.DEPLOYMENT_FOLDER }}
+          kubectl rollout restart deployment ${{ env.DEPLOYMENT_NAME }}

@@ -1,0 +1,34 @@
+name: apply-kubernetes
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+    paths:
+      - "kubernetes/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Save DigitalOcean kubeconfig
+        run: doctl kubernetes cluster kubeconfig save cube
+      - run: |
+          kubectl apply -f kubernetes/postgres
+          kubectl apply -f kubernetes/mongodb
+          kubectl apply -f kubernetes/rabbitmq
+          kubectl apply -f kubernetes/enchere
+          kubectl apply -f kubernetes/offre
+          kubectl apply -f kubernetes/notification
+          kubectl apply -f kubernetes/gateway
+          kubectl apply -f kubernetes/webapp
+          kubectl apply -f kubernetes/recherche
+          kubectl apply -f kubernetes/deploy
