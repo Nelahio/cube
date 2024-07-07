@@ -1,15 +1,15 @@
-const configureRabbitMQ = require("../services/rabbitmqConfig");
 const Produit = require("../models/produit");
+const configureRabbitMQ = require("../services/rabbitmqConfig");
 const retry = require("async-retry");
 
-const consumeEnchereFinished = async () => {
+const consumeEnchereStarted = async (message) => {
   try {
     // Configuration RabbitMQ
     const channel = await configureRabbitMQ();
     //Nom de l'exchange
-    const exchange = "Contracts:EnchereFinished";
+    const exchange = "Contracts:EnchereStarted";
     // Nom de la file d'attente
-    const queue = "recherche-auction-finished";
+    const queue = "recherche-auction-started";
     const routingKey = "";
 
     await channel.assertExchange(exchange, "fanout", { durable: true });
@@ -23,32 +23,29 @@ const consumeEnchereFinished = async () => {
             console.error("Message ou message.fields est undefined");
             return;
           }
-          const enchereFinished = JSON.parse(
-            message.content.toString()
-          ).message;
+          const enchereStarted = JSON.parse(message.content.toString()).message;
           console.log(
-            `--> Consuming EnchereFinished : ${JSON.stringify(
-              enchereFinished,
+            `--> Consuming EnchereStarted : ${JSON.stringify(
+              enchereStarted,
               null,
               2
             )}`
           );
 
           const produit = await Produit.findOne({
-            _id: enchereFinished.auctionId,
+            _id: enchereStarted.auctionId,
           });
 
-          if (enchereFinished.itemSold) {
-            produit.winner = enchereFinished.winner;
-            produit.soldAmount = enchereFinished.amount;
+          if (produit.auctionStart <= produit.updatedAt) {
+            produit.status = "Live";
           }
-
-          produit.status = "Finished";
+          console.log(produit, "produit");
+          console.log(enchereStarted, "enchereStarted");
 
           await retry(
             async (bail, attempt) => {
               console.log(
-                `EnchereFinishedConsumer : Tentative de mise à jour du produit : ${attempt}`
+                `EnchereStartedConsumer : Tentative de mise à jour du produit : ${attempt}`
               );
               await produit.save();
               console.log("Produit enregistré");
@@ -59,8 +56,6 @@ const consumeEnchereFinished = async () => {
               minTimeout: 10000,
             }
           );
-
-          channel.ack(message);
         } catch (error) {
           console.log("Erreur lors du traitement du message :", error);
           if (message && message.fields) {
@@ -72,10 +67,10 @@ const consumeEnchereFinished = async () => {
     );
   } catch (error) {
     console.error(
-      "EnchereFinishedConsumer : Erreur lors de la configuration du consumer :",
+      "EnchereStartedConsumer : Erreur lors de la configuration du consumer :",
       error
     );
   }
 };
 
-module.exports = consumeEnchereFinished;
+module.exports = consumeEnchereStarted;

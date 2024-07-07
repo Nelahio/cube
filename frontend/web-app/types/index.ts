@@ -14,6 +14,7 @@ export type Enchere = {
   currentHighBid: number;
   createdAt: string;
   updatedAt: string;
+  auctionStart: string;
   auctionEnd: string;
   status: string;
   make: string;
@@ -33,6 +34,11 @@ export type Offre = {
   bidTime: string;
   amount: number;
   bidStatus: string;
+};
+
+export type EnchereStarted = {
+  auctionId: string;
+  seller: string;
 };
 
 export type EnchereFinished = {

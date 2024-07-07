@@ -33,6 +33,7 @@ getProduitsForSearchDb = async () => {
           currentHighBid: data.currentHighBid,
           createdAt: data.createdAt,
           updatedAt: data.updatedAt,
+          auctionStart: data.auctionStart,
           auctionEnd: data.auctionEnd,
           status: data.status,
           make: data.make,
@@ -59,6 +60,7 @@ getProduitsForSearchDb = async () => {
               description: data.description,
               imageUrl: data.imageUrl,
               state: data.state,
+              status: data.status,
               updatedAt: data.updatedAt,
             },
             { new: true }

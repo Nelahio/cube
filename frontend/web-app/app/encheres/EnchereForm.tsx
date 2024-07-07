@@ -166,13 +166,21 @@ export default function EnchereForm({ enchere }: Props) {
       />
       {pathname === "/encheres/create" && (
         <>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-3 gap-3">
             <Input
               label="Prix de réserve (entrez 0 si pas de réserve)"
               name="reservePrice"
               control={control}
               type="number"
               rules={{ required: "Le prix de réserve est obligatoire" }}
+            />
+            <DateInput
+              label="Début de l'enchère"
+              name="auctionStart"
+              control={control}
+              dateFormat={"dd MMMM yyyy HH:mm"}
+              showTimeSelect
+              rules={{ required: "Le début de l'enchère est obligatoire" }}
             />
             <DateInput
               label="Fin de l'enchère"

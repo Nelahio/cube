@@ -2,6 +2,7 @@
 
 public enum OffreStatut
 {
+    Scheduled,
     Accepted,
     AcceptedBelowReserve,
     TooLow,

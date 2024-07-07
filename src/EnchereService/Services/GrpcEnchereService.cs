@@ -24,6 +24,7 @@ public class GrpcEnchereService : GrpcEnchere.GrpcEnchereBase
             Enchere = new GrpcEnchereModel
             {
                 AuctionEnd = enchere.AuctionEnd.ToString(),
+                AuctionStart = enchere.AuctionStart.ToString(),
                 Id = enchere.Id.ToString(),
                 ReservePrice = enchere.ReservePrice,
                 Seller = enchere.Seller,

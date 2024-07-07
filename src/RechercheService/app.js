@@ -7,6 +7,7 @@ const consumeEnchereDeleted = require("./consumers/enchereDeletedConsumer");
 const consumeOffreCreated = require("./consumers/offreCreatedConsumer");
 const consumeEnchereFinished = require("./consumers/enchereFinishedConsumer");
 const retry = require("async-retry");
+const consumeEnchereStarted = require("./consumers/enchereStartedConsumer");
 require("./services/requestHelpers/mappingProfiles");
 
 const app = express();
@@ -33,6 +34,9 @@ const startConsumers = async () => {
 
   await retry(consumeEnchereFinished, { retries: 3, factor: 2, delay: 5000 });
   console.log("Consommateur EnchereFinished démarré avec succès.");
+
+  await retry(consumeEnchereStarted, { retries: 3, factor: 2, delay: 5000 });
+  console.log("Consommateur EnchereStarted démarré avec succès.");
 };
 
 app.listen(port, () => console.log(`Server running on port ${port}`));

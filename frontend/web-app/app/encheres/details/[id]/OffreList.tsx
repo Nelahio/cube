@@ -66,10 +66,7 @@ export default function OffreList({ user, enchere }: Props) {
 
       <div className="overflow-auto h-[400px] flex flex-col-reverse px-2">
         {offres.length === 0 ? (
-          <EmptyFilter
-            title="Aucune offre pour cette enchère"
-            subtitle="N'hésitez pas à faire une offre"
-          />
+          <EmptyFilter title="Aucune offre pour cette enchère" />
         ) : (
           <>
             {offres.map((offre) => (
@@ -82,6 +79,11 @@ export default function OffreList({ user, enchere }: Props) {
         {!open ? (
           <div className="flex items-center justify-center p-2 text-lg font-semibold">
             Cette enchère est terminée
+          </div>
+        ) : enchere.auctionStart &&
+          new Date(enchere.auctionStart) > new Date() ? (
+          <div className="flex items-center justify-center p-2 text-lg font-semibold">
+            Cette enchère n'est pas commencée
           </div>
         ) : !user ? (
           <div className="flex items-center justify-center p-2 text-lg font-semibold">

@@ -60,6 +60,11 @@ public class EncheresController : ControllerBase
 
         enchere.Seller = User.Identity.Name;
 
+        if (enchere.AuctionStart.CompareTo(enchere.UpdatedAt) > 0)
+        {
+            enchere.Status = Statut.Scheduled;
+        }
+
         _context.Auctions.Add(enchere);
 
         var newEnchere = _mapper.Map<EnchereDto>(enchere);
