@@ -16,11 +16,6 @@ spec:
           image: nelahio/web-app:latest
           imagePullPolicy: Always
           env:
-            - name: NEXTAUTH_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: webapp-secret
-                  key: webapp-nextauth
             - name: NEXTAUTH_URL
               value: https://app.cubenchere.xyz
             - name: API_URL
