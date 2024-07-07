@@ -9,13 +9,12 @@ COPY src/AuthentificationService/AuthentificationService.csproj src/Authentifica
 COPY src/OffreService/OffreService.csproj src/OffreService/OffreService.csproj
 COPY src/NotificationService/NotificationService.csproj src/NotificationService/NotificationService.csproj
 COPY src/Contracts/Contracts.csproj src/Contracts/Contracts.csproj
-COPY tests/EnchereService.UnitTests/EnchereService.UnitTests.csproj tests/EnchereService.Tests/EnchereService.UnitTests.csproj
+COPY tests/EnchereService.UnitTests/EnchereService.UnitTests.csproj tests/EnchereService.UnitTests/EnchereService.UnitTests.csproj
 
 RUN dotnet restore cube.sln
 
 COPY src/EnchereService src/EnchereService
 COPY src/Contracts src/Contracts
-COPY tests/EnchereService.UnitTests tests/EnchereService.UnitTests
 WORKDIR /app/src/EnchereService
 RUN dotnet publish -c Release -o /app/src/out
 
