@@ -60,7 +60,7 @@ public class EncheresController : ControllerBase
 
         enchere.Seller = User.Identity.Name;
 
-        if (enchere.AuctionStart.CompareTo(enchere.UpdatedAt) > 0)
+        if (enchere.AuctionStart.CompareTo(DateTime.UtcNow) > 0)
         {
             enchere.Status = Statut.Scheduled;
         }
@@ -98,7 +98,7 @@ public class EncheresController : ControllerBase
         enchere.Item.ImageUrl = updateEnchereDto.ImageUrl ?? enchere.Item.ImageUrl;
         enchere.Item.Category = updateEnchereDto.Category ?? enchere.Item.Category;
         enchere.Item.State = updateEnchereDto.State != null ? (Etat)Enum.Parse(typeof(Etat), updateEnchereDto.State) : enchere.Item.State;
-        
+
         await _publishEndpoint.Publish<EnchereUpdated>(_mapper.Map<EnchereUpdated>(enchere));
 
         var result = await _context.SaveChangesAsync() > 0;
